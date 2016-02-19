@@ -1,0 +1,47 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use autodie;
+use experimental   qw(signatures);
+use Cwd            qw(abs_path);
+use Encode         qw(encode);
+use File::Basename qw(dirname);
+
+
+my $root_dir;
+my %done;
+
+sub pandocify($path, $level = 0)
+{
+    chdir $root_dir;
+    open my $fh, '<:encoding(UTF-8)', $path;
+
+    chdir abs_path(dirname($path));
+
+    while (<$fh>)
+    {
+        s/^(#+)/$1 . ('#' x $level)/ge;
+        if (/\[\[(?:.*\|)?(.+?)\]\]/ && !$done{"$1.md"})
+        {
+            print "\n";
+            $done{$path} = 1;
+            eval { pandocify("$1.md", $level + 1) };
+            warn $@ if $@;
+        }
+        else
+        {
+            print encode('UTF-8', $_);
+        }
+    }
+
+    close $fh;
+    chdir $root_dir or die "Can't cd into '$root_dir'";
+}
+
+
+die "Usage: pandocify [WIKI-ROOT]\n" unless @ARGV == 1;
+
+my $root  = shift;
+$root_dir = abs_path(dirname($root));
+
+pandocify($root);
