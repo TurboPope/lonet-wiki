@@ -4,4 +4,6 @@ Die Markdown-Dateien können direkt oder mit [gollum](https://github.com/gollum/
 
 Wenn man [pandoc](http://pandoc.org/) installiert hat, kann man auch mit `make` das ganze in ein PDF konvertieren.
 
+Siehe auch <https://userpages.uni-koblenz.de/~fneumann/lehre/lone/> für „Lösungen“ der Übungen und alle Literatur als PDFs.
+
 Bitte eine E-mail an <mbrack@uni-koblenz.de> senden wenn ihr mitarbeiten wollt.
