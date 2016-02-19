@@ -1,5 +1,5 @@
-$$ \frac{1}{2} $$
+Hier demonstrieren wir unser$$ \frac{1}{2} $$-Wissen.
 
 $$
-\frac{1}{2}
+f(x) = \frac{1}{2}x
 $$
