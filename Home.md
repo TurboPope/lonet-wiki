@@ -1,5 +1,3 @@
-Hier demonstrieren wir unser $\frac{1}{2}$-Wissen.
+[[grundlagen]]
 
-$$
-f(x) = \frac{1}{2}x
-$$
+[[graphen]]
