@@ -1,3 +1,7 @@
+# Grundlagen
+
 [[grundlagen]]
+
+# Graphen
 
 [[graphen]]
