@@ -32,3 +32,17 @@ Bei einem gewichteten Graphen kann man die **Pfadlänge** eines Pfades berechnen
 Ein Graph im euklidischen Raum (normale Geometrie).
 
 Die Gewichtung ist die euklidische Distanz zwischen zwei Punkten $p = (p_1 ... p_n)$ und $q = (q_1 ... q_n)$ im $n$-dimensionalen Raum: $\|pq\| = \sqrt{\displaystyle{\sum_{i = 1}^n}} (p_i - q_i)^2$
+
+## Topologischer Graph
+
+Laut Dausi ein gewichteter Graph, bei dem die Kantengewichtfunktion aber nicht nur die Distanz zwischen den Punkten ist.
+
+## UDG (Uni-Disk Graph)
+
+Ein UDG hat einen Radius $r$. Mit diesem Radius zieht man einen Kreis um einen Knoten $V$. $UDG(V)$ ist dann die Menge aller Knoten, die sich in dem Kreis befindet.
+
+## QUDG (Quasi-Unit-Disk Graph)
+
+In der Realität kann man nicht einfach um z.B. einen WLAN-Router einen Kreis ziehen und sagen, dass alles im Kreis sich zum Router verbinden kann. Stattdessen nimmt man zwei Radien $r_{min}$ und $r_{max}$ ($r_{min} \leq r_{max}$) und zieht damit zwei Kreise um $V$. $QUDG(V)$ ist dann die Menge aller Knoten, die im $r_{min}$-Kreis sind, aber zwischen $r_{min}$ und $r_{max}$ nur vielleicht.
+
+Besonders interessant ist wenn $\frac{r_{max}}{r_{min}} \leq \sqrt{2}$, aber warum das so ist weiß keiner.
