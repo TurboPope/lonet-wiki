@@ -18,7 +18,7 @@ Des Weiteren wird der **Winkel** zwischen zwei Geraden $uv$ und $vw$ wie folgt n
 
 ## Spanner
 
-In einem topologischen, gewichteten Graphen $G$ ist der **kürzeste Pfad** $p_{min} zwischen zwei Knoten $u$ und $v$ der Pfad, für den die Pfadlänge minimal ist. Er wird wie folgt notiert: $p_{min} = \Gamma_G(u, v)$
+In einem topologischen, gewichteten Graphen $G$ ist der **kürzeste Pfad** $p_{min}$ zwischen zwei Knoten $u$ und $v$ der Pfad, für den die Pfadlänge minimal ist. Er wird wie folgt notiert: $p_{min} = \Gamma_G(u, v)$
 
 In einem euklidischen Graphen ist das Gewicht der Kanten durch die Distanz der Knoten gegeben und der kürzeste Pfad $p_{min}$ wird notiert mit $p_{min} = \Pi_G(u, v)$.
 
@@ -56,16 +56,56 @@ $$
 \|G\| = \sum_{uv \in G} \|uv\|
 $$
 
-Der **EMST** über eine Punktemenge $V$ ist der zusammenhängende Graph, für den $\|V\|$ minimal ist. Ist $UDG(V)$ verbunden, so ist $EMST(V) \subseteq UDG(V)$. EMST ist jedoch keine k-lokale Topologiekontrolle.
+Der **EMST** über eine Punktemenge $V$ ist der zusammenhängende Graph, für den $\|V\|$ minimal ist. Ist $UDG(V)$ verbunden, so ist $EMST(V) \subseteq UDG(V)$ (*Beweis ausgelassen*). EMST ist jedoch keine k-lokale Topologiekontrolle (*Beweis ausgelassen*).
 
 Der EMST über $V$ lässt sich über den Algorithmus von Kruskal herstellen: Zeichne in jedem Schritt die kurzmöglichste Kante, die keinen Zyklus erzeugen würde, bis der Graph zusammenhängend ist.
 
 
 ## LMST (Local EMST)
+
 Der **LMST** ist eine Graphenstruktur, die "nahme am" EMST ist. Gegeben sei ein Graph $G$ mit zwei Knoten $u$ und $v$ und der Kante $uv$. Wendet man LMST als Topologiekontrolle an, bleibt $uv$ im Graphen, wenn:
 
 $uv \in LMST(G) \Leftrightarrow uv \in EMST(N(u)) \land uv \in EMST(N(v))$
 
 Das heißt: Wenn $uv$ und $vu$ im EMST über die Nachbarn des jeweils anderen Knotens enthalten sind, bleibt $uv$ bestehen (hier etwas kompliziertere Definition um ungerichtete Graphen mit einzubeziehen).
 
-Der LMST ist eine 2-lokale Topologiekontrolle.
+(*Problem mit gleichen Kantenlängen ausgelassen.*)
+
+Der LMST ist eine 2-lokale Topologiekontrolle (*Beweis ausgelassen*).
+
+Ist $UDG(V)$ verbunden, so ist $EMST(V) \subseteq LMST(V)$ (*Beweis ausgelassen*).
+
+Der LMST hat maximalen Grad 6 (*???, Beweis in Übung*).
+
+
+## RNG (Relativer Nachbarschaftsgraph)
+
+$V$ sei eine Menge von Punkten, die zu einem Graphen verbunden werden sollen.
+
+$$
+uv \in RNG(V) \Leftrightarrow \|uv\| \leq max\{\|uw\|, \|vw\|\} \quad \forall{w \in V \backslash \{u,v\}}
+$$
+
+Alternativ: Sei Radius $r = \|uv\|$. Sei $c_u$ die Menge der Punkte im Kreis um $u$ mit Radius $r$: $c_u = circleSet(u, r)$ und $c_v$ das Gleiche für $v$. Dann ist
+
+$$
+uv \in RNG(V) \Leftrightarrow \exists!{w \in V}: w \in c_u \cap c_v
+$$
+
+Das heißt: Die Schnittmenge (**Lune**) der Kreise um $u$ und $v$ mit mit deren Abstand als Radius enthält keine weiteren Knoten.
+
+Der **Unit- Relativer Nachbarschaftsgraph (URNG)** ist die Schnittmenge aus RNG und UDG:
+
+$$
+URNG(V) = RNG(V) \cap UDG(V)
+$$
+
+Der URNG ist eine 1-lokale Graphkonstruktion und $LMST(V) \subseteq URNG(V)$ (*Beweis ausgelassen*).
+
+Sei $V$ eine Punktemenge mit $n$ Punkten. Dann ist
+
+$$
+\frac{\|\Pi_{URNG}(u,v)\|}{\|\Pi_{UDG}(u,v)\|} \leq n-1
+$$
+
+(*??? Keine Ahnung was das soll, Beweis ausgelassen*)
