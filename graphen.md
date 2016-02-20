@@ -28,3 +28,7 @@ Zusätzlich zum Graphen gibt es noch eine Funktion $f$, die das Gewicht einer Ka
 Bei einem gewichteten Graphen kann man die **Pfadlänge** eines Pfades berechnen, indem man alle Kantengewichte im Pfad zusammenzählt: $\hat{f} = \displaystyle{\sum_{i = 1}^{n - 1}} f(v_iv_{i + 1})$
 
 ## Euklidischer Graph
+
+Ein Graph im euklidischen Raum (normale Geometrie).
+
+Die Gewichtung ist die euklidische Distanz zwischen zwei Punkten $p = (p_1 ... p_n)$ und $q = (q_1 ... q_n)$ im $n$-dimensionalen Raum: $\|pq\| = \sqrt{\displaystyle{\sum_{i = 1}^n}} (p_i - q_i)^2$
