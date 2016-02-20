@@ -15,6 +15,11 @@ Zusätzlich können andere Übertragungen im Gebiet das Signal überlagern. Um s
 
 Weiterhin schränkt die begrenzte **Batteriekapazität** die mögliche Sendeleistung ein. Um eine höhere **Energieeffizienz** zu erreichen können **Schlaf-Wach-Zyklen (sleep-cycles)** für die Übertragungskomponenten genutzt werden. Des weiteren können manche Berechnungen auf den Sensordaten bereits vor dem Weitersenden von Netzwerkknoten übernommen werden (**in-network-processing**).
 
+
+## Modellbildung
+
+### Pfadverlust
+
 Auf Grund der räumlichen Ausbreitung des Signals nimmt dessen Stärke exponentiell ab. Der Zusammenhang zwischen Sendeleistung und Empfangsleistung ist:
 
 $$
@@ -39,3 +44,29 @@ f(d) = a \cdot d^\alpha + b
 $$
 
 Mit Distanz $d$, Übertragungsfaktor $a$, Path-Loss Exponent $\alpha$ und additiver Konstante $b$ (*???*).
+
+### Graphenmodelle
+
+Der **Unit-Disk-Graph (UDG)** beschreibt einen Graphen auf einer Menge Knoten, bei dem jeder Knoten mit jedem Knoten verbunden ist, der innerhalb seines **Unit-Disk-Radius** $R$ liegt. Dies modelliert die Übertragungsreichweite jedes Knoten. Der **Quasi-Unit-Disk-Graph (QUDG)** erweitert den UDG um eine minimal-Radius (im QUDG heißen die Parameter $r_{max}$ und $r_{min}$).
+
+
+## Topologiekontrolle
+
+Durch die limitierte Übertragungsreichweite hat ein drahtloses Netzwerk bereits eine implizite Struktur. Um eine Netztwerkstruktur noch weiter zu vereinfachen und somit das **Routing** von Nachrichten zu erleichtern und die Energieeffizienz zu erhöhen, können verschiedene **Topologiekontrollen** zum Einsatz kommen. Die wichtigsten, in dieser Vorlesung teilweise detailliert besprochenen, sind:
+
+* **Neighbor elimination** (Kanten streichen)
+* **Backbone construction**
+* **Virtual overlays**
+* **Relocation**
+
+Ein **lokaler Algorithmus** (für eine Topologiekontrolle) erreicht ein netzwerkweites Ziel mit (Knoten-)lokalen Entscheidungen, während ein **globaler Algorithmus** Wissen über den Zustand des gesamten Netzwerkes mit einbezieht. Lokale Algorithmen haben folgende Vorteile:
+
+* Resourcen sparen
+* Beliebig große Netzwerke ermöglichen
+* Besser mit dynamischen Änderungen klar kommen
+* Arbeiten besser wenn keine gesamte Sicht auf das Netzwerk verfügbar ist
+
+
+## Datenkommunikation
+
+**Datenkommunikation** bezeichnet die Problematik, eine Nachricht möglichst effizient durch ein nicht oder nur tweilweise bekanntes Netzwerk zu schicken.
