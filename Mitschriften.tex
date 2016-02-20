@@ -1,0 +1,1383 @@
+\documentclass{article}
+\usepackage{subscript}
+\usepackage{ngerman}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage[utf8]{inputenc} %Umlaute
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{tkz-graph}
+\usepackage{ stmaryrd }
+\usepackage{ mathrsfs }
+\usepackage{cancel}
+\usepackage{tikz}
+
+
+\GraphInit[vstyle = Shade]
+\tikzset{
+	LabelStyle/.style = { rectangle, rounded corners, draw,
+		minimum width = 2em, fill = yellow!50,
+		text = red, font = \bfseries },
+	VertexStyle/.append style = { inner sep=5pt,
+		font = \Large\bfseries},
+	EdgeStyle/.append style = {->, bend left} }
+
+
+\newcommand{\bild}[4]{ %Pfad, %Weite, %Name, %label
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=#2\textwidth]{#1}
+		\caption{#3}
+		\label{#4}
+	\end{figure}	
+}
+
+\newcommand{\sieheBild}[4]{
+	Siehe Abbildung \ref{#4}
+	\bild{#1}{#2}{#3}{#4}
+}
+
+\newcommand{\doubleAbs}[1]{
+	\|#1\|
+}
+
+\newcommand{\floor}[1]{
+	\lfloor #1 \rfloor
+}
+		
+\newcommand\circlearound[1]{%
+	\tikz[baseline]\node[draw,shape=circle,anchor=base] {#1} ;
+}
+
+
+		
+\begin{document}
+	
+\section{Einführung}
+SIEHE FOLIEN!
+
+\section{Vorlesung 1}
+\subsection*{Graph}
+$G = (V, E), \ E \subseteq V \times V$ \\
+$v \in V$ Knoten, $(u,v) \in E$ Kante \\
+(abkürzend $uv \in E, \ v \in G, \ uv \in G$)
+
+\subsection*{Ungerichteter Graph}
+$uv \in G \Leftrightarrow vu \in G$
+
+\subsection*{Subgraph}
+$G = (V_G, E_G)$ ist Subgraph von $H = (V_H, E_H)$, wenn $V_G \subseteq
+V_H$ und $E_G \subseteq E_H$ \\
+Notation: $G \subseteq H$ \\
+$H$ ist Supergraph von $G$
+
+\subsection*{Schnitt von zwei Graphen}
+Schnitt von zwei Graphen $G = (V_G,E_G)$ und $H = (V_H,E_H)$ bezeichnet
+mit $G \cap H$ besteht aus $V = V_G \cap V_H, \ E = \{ vw: v,w \in V, vw
+\in E_G \cap E_H\}$
+
+\subsection*{Vollständiger Graph}
+$E = V \times V$
+
+\subsection*{Gewichteter Graph}
+$(G,f)$ und $f: E \rightarrow \mathbb{R}$ \\
+für $e \in E$ ist $f(e)$ das Gewicht von $e$
+
+\subsection*{Euklidischer Graph}
+Knoten sind Punkte im euklidischen Raum \\
+Euklidische Distanz zwischen $p$ und $q$: $\| pq \|$ \\
+Vollständiger Euklidischer Graph (Verknüpfung der vorherigen Definitionen)
+
+\subsection*{Pfad}
+$p = (v_1, v_2, \ldots, v_n)$ von $v_1$ nach $v_n$ in Graphen $G =
+(V,E)$ erfüllt $v_i v_{i+1} \in E$ \\
+(abkürzend: $v_1 v_2 \ldots v_n, p \in G$)
+
+\subsection*{Verbundener Graph}
+$G$ ist verbunden, wenn $\forall v, w \exists$ mind. ein Pfad $p \in G$,
+welcher $v$ mit $w$ verbindet
+
+\subsection*{Pfadlänge}
+Pfadlänge eines Pfades $p = v_1 \ldots v_n$ in einem gewichteten Graphen
+$(G,f)$: \\
+$\displaystyle \hat{f}(p) = \sum_{i=1}^{n-1} f(v_i v_{i+1})$ \\
+
+\noindent Euklidische Pfadlänge für Pfad $p$ in Euklidischem Graphen $G$: \\
+$\displaystyle \|p\| = \sum_{i=1}^{n-1} \| v_i v_{i+1} \|$ \\
+
+\noindent Topologische Pfadlänge: Graph $G$ gewichtet mit $f(e) = 1$ \\
+Für Pfad $p$ in $G$ wird für $f(p)$ auch folgende Notation verwendet: $|p|$
+
+\subsection*{Nachbar}
+Für Graph $G$ und $v \in G$ sind die k-hop-Nachbarn von $v$: \\
+$N_k(v) = \{ w: \exists p \ \text{der Länge} \leq k \ \text{von} \ v \
+\text{nach} \ w \}$ \\
+Annahme: $v \in N_k(v)$ (Ausnahmen werden explizit genannt) \\
+$N_0(v) = \{v\}, N(v) := N_1(v)$ \\
+$v$ und $w$ „sehen sich“, wenn $v \in N(w)$ und $w \in N(v)$
+
+\subsection*{Graph-Klasse $\mathcal{C}$}
+„Menge“ von Graphen, die bestimmte Eigenschaft erfüllen
+
+\subsection*{Topologiekontrolle $\tau: \mathcal{C} \rightarrow \mathcal{D}$}
+Abbildung von Graph-Klasse $\mathcal{C}$ in Graph-Klasse $\mathcal{D}$ \\
+Subgraph-Konstruktion: $\tau(G) \subseteq G$
+\\Einschub: 
+Topologiekontrolle bezeichnet alle Techniken, die die Menge der aktiven Links zwischen Knoten verringern, um Eigenschaften des Kommunikationsnetzes herzustellen, ohne andere Eigenschaften zu zerstören.
+
+\subsection*{Lokale Sicht}
+Die lokale Sicht $G[v,k]$ eines Knotens $v$ aus Graphen $G=(V,E)$
+besteht aus: \\
+$V_v \in N_k(v)$ \\
+$E_v \in \{ xy \in E : x \in N_{k-1}(v) \wedge y \in N_k(v) \}$ \\
+$G[v] := G[v,1]$
+
+\section{Vorlesung 2}
+\subsection*{k-lokale Topologiekontrolle}
+$\tau: \mathcal{C} \rightarrow \mathcal{D}$ ist k-lokale
+Topologiekontrolle \\
+$\forall G \in \mathcal{C}, \forall v \in \tau (G) : \exists u \in G :
+\tau (G)[v] = \tau (G[u,k])[v]$
+
+\subsection*{2D-Geometrie-Definitionen}
+\begin{itemize}
+	\item Bisektor durch $u$ und $v$ definiert: $B(u,v) = \{x : \|xu\| =
+	\|xv\|\}$
+	\item Geschlossene Halbebene durch $u$ und $v$ definiert: $H(u,v) = \{x:
+	\|xu\| \leq \|xv\| \}$
+	\item Kreis mit Radius $r$ um $u$: $C_r(u) = \{ x : \|xu\| \leq r \} $
+	\item Den $u,v,w$ umschließenden Kreis
+	\item Den kleinsten $u$ und $v$ umschließenden Kreis
+	\item Winkel $\measuredangle uvw$ zwischen $uv$ und $vw$
+\end{itemize}
+
+\subsection*{Graph-Spanner}
+\subsubsection*{Kürzester Weg}
+Pfad von $u$ nach $v$ in einem gewichteten Graphen $(G,f)$ ist ein
+kürzester Weg wenn für alle Pfade $q$ von $u$ nach $v$ in $G$ gilt:
+$f(p) \leq f(q)$ \\
+Notation für topologisch kürzesten Weg von $u$ nach $v$ im Graphen $G$:
+$\Gamma_G(u,v)$ \\
+Notation für Euklidischen kürzesten Weg: $\Pi_G(u,v)$
+
+\subsubsection*{Euklidischer Spanner}
+Graph $G$ definiert über Punktmenge $P$ ist ein Euklidischer
+$c$-Spanner, wenn für alle $u,v \in G$ gilt: $\displaystyle
+\frac{\|\Pi_G(u,v)\|}{\|uv\|} \leq c$
+
+\subsubsection*{Euklidischer Graph-Spanner}
+Sei $G$ ein Euklidischer Graph. Ein Subgraph $H \subseteq G$ mit
+derselben Knotenmenge ist ein Euklidischer $c$-Spanner von $G$, wenn
+$\forall u,v \in G$ gilt: $\displaystyle
+\frac{\|\Pi_H(u,v)\|}{\|\Pi_G(u,v)\|} \leq c$
+
+\subsubsection*{Topologischer Graph-Spanner}
+Text wie eben. $\displaystyle \frac{|\Gamma_H(u,v)|}{|\Gamma_G(u,v)|}
+\leq c$
+
+\subsubsection*{Spanning-Ratio}
+$c$ ist die Spanning-Ratio.
+
+\subsection*{Planarer Graph}
+Graphentheoretisch: Graph $G$ ist planar, wenn $G$ auf die Ebene
+gezeichnet werden kann, sodass sich keine Kanten schneiden. \\
+Definition hier: Graph $G$ ist als Zeichnung auf der Ebene gegeben.
+Gesucht ist ein Teilgraph $H$, der keine schneidenden Kanten enthält.
+Dieser Graph $H$ wird dann als planar bezeichnet.
+
+	
+	
+
+\section{Vorlesung 3}
+\subsection*{Euklidischer Minimaler Spannbaum}
+Punktmenge V, Es sei: $\|G\|$ das Euklidische Gewicht eines Graphen G,
+d.h. 
+\[
+\|G\| := \Sigma_{uv \in G} \|uv\|
+\]
+Ein Euklidischer minimaler Spannbaum EMST (V) ist ein über V zusammenhängender Graph mit.\\
+
+$\|EMST(V)\| \leq \|G\| \, \forall G $ zusammenhängender Graph über V
+
+\subsubsection*{Beispiel - Konstrutkion nach Kruskal}
+Wähle so oft wie möglich unter den noch nicht ausgewählten kürzesten möglichen Kanten eine Kante, die keinen Kreis bildet.
+
+\subsection*{Satz}
+Sei V eine Knotenmenge, dann gillt: \\
+UDG(V) verbunden $\Rightarrow$ EMST(V) $\subseteq$ UDG(V)
+
+\subsubsection*{Beweis}
+Annahme: $\exists e \in EMST(V)$ mit $e \not\in UDG(V)$ \\
+$\Rightarrow \|e\| > R$ (R sei UDG-Radius)\\
+Betrachte T := EMST(V) $\backslash$ \{e\} \\
+EMST(V) ist ein Baum $\Rightarrow$ T ist unverbunden\\
+UDG(V) verbunden $\Rightarrow$ $\exists e' \in UDG(V)$ \\
+mit $T' := T \cup \{e'\}$ verbunden\\
+mit $\|e'\| \leq R < |e|$ \\
+$\Rightarrow \|T'\| = \|T\|+\|e'\| < \|T\|+\|e\| = \|EMST(V)\|$\\
+$\Rightarrow \lightning$ \\
+
+
+\subsection*{Satz}
+EMST ist keine k-lokale Graphstruktur.\\
+
+\subsubsection*{Beweis}
+Annahme: $\exists$ doch k-lokaler Algorithmus für EMST\\
+Betrachte folgenden UDG für $a < b$ \\
+\sieheBild{Bilder/1.png}{0.7}{bild1}{Bild 1}
+\\
+Es folgt: Knoten $v_1$ und $v_2$ müssen Kante $v_1 v_2$ entfernen, um EMST zu konstruieren\\
+Verändere Position von $v_3$ und $v_4$ sodass $b < a$\\
+Die k- Hop - Sicht von $v_1$ und $v_2$ ändert sich nicht.\\
+$\Rightarrow v_1 v_2$ wird wie vorhin entfernt \\
+$\Rightarrow$ Somit kann der Algorithmus keinen EMST konstruieren.
+
+\subsection*{Lokaler Minimaler Spannbaum (LMST)} 
+Idee: wende EMST-Konstruktion nur auf die Nachbarn eines Knotens an, also: 
+\[
+	uv \in LMST(V) \Leftrightarrow uv \in EMST(N(u))
+\]
+Beachte: Dieser Graph ist i.a. gerichtet; Beispiel: 
+\\
+\sieheBild{Bilder/2.png}{0.4}{bild2}{Bild 2}
+\\
+EMST(N(u)) = \{uv, $uw_4$\}\\
+EMST(N(v)) = \{$vw_1$, $w_1 w_2$, $w_3 w_4$, $w_4 u$\}
+\\
+Somit existiert in LMST(V) beispielsweise uv aber vu existiert nicht.
+\begin{itemize}
+	\item Um diesen Graphen noch ungerichtet zu konstruieren, definiert man: 
+	\[
+	uv \in LMST(V) \Leftrightarrow uv \in EMST(N(u))
+	\]
+	\[
+	und
+	\] 
+	\[
+	vu \in EMST(N(v))
+	\]
+\end{itemize}
+
+\subsection*{Gleiche Kantenlängern verhindern LMST}
+Betrachte: \\
+\sieheBild{Bilder/3.png}{0.4}{bild3}{Bild 3}\\
+$\|uv\| = \|vu\| = \|wu\|$
+\\
+EMST(\{u, v, w\}) ist nicht eindeutig
+\\
+Beispielsweise: 
+\begin{itemize}
+	\item EMST(N(u)) = \{uw, wv\}
+	\item EMST(N(v)) = \{vu, uw\}
+	\item EMST(N(w)) = \{wv, wu\}
+\end{itemize}
+
+\noindent Nach vorheriger Definition enthielte LMST damit gar keine Kante.\\
+Wir müssen im Falle gleich langer Kanten eine der beiden Kanten eindeutig "`bevorzugen"'. Definiere hierzu folgende Relation $>$ : \\
+$
+uv > xy \Leftrightarrow \|uv\| > \|xy\|
+$\\
+\hspace*{10mm}oder 
+$\|uv\| = \|xy\|$ und $max\{u, v\} > max\{x, y\}$\\
+\hspace*{10mm}oder 
+$\|uw\| = \|xy\|$ und $max\{u, v\} = max\{x, y\}$ und $min\{u, v\} > min\{x, y\}$
+\\
+(Hierbei sei Für min und max Berechnung irgendeine lexikographische Ordnung auf der Knotenmenge definiert)
+
+\subsubsection*{Übung}
+$\neg (uv > xy)$ und $\neg (xy > uv) \Leftrightarrow uv = xy$
+
+\subsection*{Satz: Vorbereitung}
+Im folgenden betrachten wir EMST Konstruktion unter dieser Kantenordnung $>$ und die vorige LMST Definition\\ 
+$uv \in LMST(V) \Leftrightarrow uv \in EMST(N(u)) $
+und 
+$vu \in EMST(N(v))$
+
+\subsection*{Satz}
+LMST ist eine 2 lokale Topologiebildung (von UDG-Graphen nach LMST Graphen)
+
+\subsubsection*{Beweis}
+Zu zeigen ist: $\forall G \in UDG, \forall v \in LMST (G): \exists u \in G:$\\
+$LMST(G)[v] = LMST(G[u, 2])[v]$\\
+\vspace*{5mm}
+Es ist $uw \in LMST(G)[v]$ \\
+$\Leftrightarrow vw \in EMST(N_G(v))$ und $wv \in EMST(N_G(w))$ (A)\\
+$[$Notation: $N_G(v) = $ Nachbarn von v in Graphen G $]$\\
+Mit $N_G(v) = N_{G[v,2]}(v)$ und  $N_G(2) = N_{G[v,2]}(w)$ folgt\\
+(A) $\Leftrightarrow vw \in EMST(N_{G[v,2]}(v))$ und $vw \in EMST(N_{G[v,2]}(w))$\\
+$\Leftrightarrow vw \in LMST(G[v,2])$\\
+$\Leftrightarrow vw \in LMST(G[v,2])[v]$ \\
+(Somit existiert mit u = v ein solches u)
+
+\section{Vorlesung 4}
+
+\subsection*{Satz}
+Für zusammenhängenden UDG gilt:
+$EMST \subseteq  LMST$
+
+\subsubsection*{Beweis}
+Annahme $uv \not\in LMST$ (Zeige $uv \not\in EMST$)\\
+$\Rightarrow uv \not\in EMST(N(u))$ oder $vu \not\in EMST(N(v))$\\
+Betrachte oBdA $uv \not\in EMST(N(u))$\\
+Betrachte zwei Fälle:
+\begin{enumerate}
+	\item $uv \not\in UDG \Rightarrow^{EMST\subseteq UDG} uv \in EMST$
+	\item $uv \in UDG$,\\
+	da v ein Nachbar von u ist, gilt $\exists p \in EMST(N(u))$ mit $p = p_1 p_2 ... p_n$ und $p_1 = u, p_n = v$
+\end{enumerate}
+\sieheBild{Bilder/4.png}{0.4}{bild4}{Bild 4}\\
+Es gilt: $\|uv\| > \|p_i p_{i+1}\|$\\
+$[$ Annahme $\|uv\| < \|p_i p_{i+1}\|]$:\\
+Streiche $p_i p_{i+1}$ in EMST(N(u)) und füge Kante uv ein.\\
+Ergebnis ist zusammenhängender Graph T in N(u) mit $\|T\| < \|EMST(N(u))\|$ \\
+$\lightning$\\
+\vspace*{5mm}\\
+Betrachte $p_i p_{i+1}$:\\
+Entweder ist $p_i p_{i+1}$ auch Kante in EMST(V) oder falls nicht dann gilt: \\
+$\exists$ Pfad $q = q_1 ... q_n$ mit $q_1 = p_i$ und $q_n = p_{i+1}$ und $q_j q_{j+1} \in EMST(V)$ und $\|q_j q_{j+1}\| < \|p_i p_{i+1}\|$\\
+Beweis analog zu  (*)
+\sieheBild{Bilder/5.png}{0.4}{bild5}{Bild 5}\\
+$\Rightarrow$ u und v sind in EMST(V) über einen Pfad $p'$ verbunden mit $\forall e \in p': \|e\| < \|uv\|$\\
+$\Rightarrow$ da EMST(V) ein Baum ist (d.h. keine Zyklen emthält) folgt: $uv \not\in EMST(V)$
+
+\subsection*{Satz}
+LMST hat einen maximalen Grad von 6.
+
+\subsubsection*{Beweis}
+Übung
+
+\subsection*{Relativer Nachbarschaftsgraph (RNG)}
+Definition: Sei V eine Punktemenge. RNG(V) ist definiert als:
+\[
+	uv \in RNG(V) \Leftrightarrow \doubleAbs{uv} \leq max\{\doubleAbs{uw}, \doubleAbs{vw}\} \forall w \in V \backslash \{u,v\}
+\]
+
+\subsubsection*{Alternative Definition}
+\sieheBild{Bilder/6.png}{0.7}{bild6}{Bild 6}\\
+
+\subsection*{Definition: Unit - Relativer - Nachbarschaftsgraph: URNG}
+URNG(G) = RNG(V) $ \cap $ UDG(V)
+
+\subsubsection*{Übug}
+URNG ist eine 1- lokale Graphkonstruktion\\
+$[ URGNG \subseteq UDG, URNG \subseteq RNG]$
+
+\subsection*{Satz}
+$LMST(V) \subseteq URNG(V)$
+
+\subsubsection*{Beweis}
+Annahme: $\exists uv \in LMST(V) mit uv \not\in URNG(V)$
+\\
+\sieheBild{Bilder/7.png}{0.4}{bild7}{Bild 7}\\
+Es folgt: $\exists w : \doubleAbs{uw}, \doubleAbs{vw} < \doubleAbs{uv}$\\
+Betrachte EMST(N(u)):\\
+$uv \in LMST(V) \Rightarrow uv \in EMST(N(u))$\\
+EMST(N(u)) \textbackslash \{uv\} ist unverbunden\\
+und entweder uw oder vw verbindet diesen Graphen wieder.\\
+oBdA sei dies die Kante uw.\\
+Konstruiere folgenden zusammenhängenden Graphen
+\\
+T := EMST(N(u)) \textbackslash \{uv\} $\cup$ \{uw\}\\
+Es folgt: $\doubleAbs{T} = \doubleAbs{EMST(N(u))} - \doubleAbs{uv} + \doubleAbs{uw} < \doubleAbs{EMST(N(u))}$\\
+$ \Rightarrow \lightning$
+
+\subsection*{Satz}
+Sei V eine Menge mit n Punkten. Es gilt:\\
+$\frac{\doubleAbs{\Pi_{URNG}(u,v)}}{\doubleAbs{\Pi_{UDG}(u,v)}} \leq n-1 $
+
+\subsubsection*{Beweis}
+\begin{enumerate}
+	\item $\doubleAbs{uv} > R (UDG-Radius)$ \\
+	Somit ist $\doubleAbs{\Pi_{URNG}(u,v)} \geq \doubleAbs{uv} > R (1)$\\
+	Es gilt immer: $|\Pi_{URNG}(u,v)| \leq n-1$\\
+	Jede besuchte Kante hat maximale Länge R (R=UDG-Radius)\\
+	Somit ist $\doubleAbs{\Pi_{UDG}(u,v)} \leq (n-1) * R (2)$\\
+	Somit ist mit (1) und (2):
+	\\
+	$\frac{\Pi_{URNG}(u,v)}{\doubleAbs{\Pi_{UDG}(u,v)}} \leq \frac{\not R * (n-1)}{\not R} = n-1$
+	\item Betrachte den Pfad p von u nach v in EMST(V)
+	\\
+	\sieheBild{Bilder/8.png}{0.4}{bild8}{Bild 8}\\
+	\\
+	Jede Kante in P hat eine Länge $\leq \doubleAbs{uv}$\\
+	(ansonsten wäre EMST nicht minimal; tausche diese Kante $> \doubleAbs{uv}$ mit $\doubleAbs{uv}$ aus)\\
+	Somit ist $\doubleAbs{p} \leq \doubleAbs{uv} (n-1)$
+	\\
+	Mit EMST(V) $ \subseteq$ LMST(V) $\subseteq$ URNG(V) folgt:\\
+	$p \in URNG(V)$, also\\
+	$\doubleAbs{\Pi_{URNG}(u,v)} \leq \doubleAbs{P} \leq \doubleAbs{uv}(n-1)$\\
+	Mit $\doubleAbs{\Pi_{UDG}(u,v)} = \doubleAbs{uv}$ folgt dann\\
+	$\frac{\doubleAbs{\Pi_{URNG}(u,v)}}{\Pi_{UDG}(u,v)} \leq \frac{\not\doubleAbs{uv}* (n-1)}{\not\doubleAbs{uv}} = n-1$
+\end{enumerate}
+
+\section{Vorlesung 5}
+\subsection*{Ergänzungen}
+Es gibt Knotenpositionierungen für die die euklidische SPanning - Ratio n-1 erreicht wird.
+\sieheBild{Bilder/10.png}{0.4}{bild10}{Bild 10}\\
+Ergänzung zu Bild: v1 und vn schauen unten als Kanten heraus.
+Die einzigen in RNG verblöeibenden Kanten sind $v_i, v_{i+1} \forall 1 \leq i \leq n-1$\\
+Sei: $\doubleAbs{v_1 v_n} = R$ (R ist UDG-Radius)\\
+Damit ist die Paflänge von $v_1 v_2 ... v_n$ gegeben wiefolgt
+\[
+	\doubleAbs{v_1 v_2 ... v_n} \approx (n-1) * R
+\]
+Außerdem ist $v_1 v_2 ... v_n$ ein gerichteter Pfad zwischen $v_1$ und $v_n$ im RNG.\\
+Somit folgt
+\[
+	\frac{\doubleAbs{\Pi_{RNG}(v_1 v_n)}}{\doubleAbs{\Pi_{UDG}(v_1 v_n)}} = \frac{\doubleAbs{v_1 v_2 v_n}}{\doubleAbs{v_1 v_n}} \approx \frac{(n-1) * R}{R}
+\]
+Wir sagen hierzu: Die Schranke n-1 ist scharf ud schreiben URNG ist ein $\Theta(n)$-Unit-Disk-Graph-Spanner (n ist die Anzahl Knoten)\\
+Der RNG ist nicht gradbeschränkt\\
+\sieheBild{Bilder/11.png}{0.4}{bild11}{Bild 11}\\
+Jede Kante $v_1 v_i$ für $2 \leq i \leq n$ ist in RNG enthalten.
+
+\subsection*{Gabriel Graph}
+Definition: Der Gabriel Graph GG(V) für eine Punktmenge V besteht aus genau den Kanten uv für die folgendes gilt:
+\\
+C(u,v) enthält keine Punkte aus $V\backslash\{u,v\}$\\
+\sieheBild{Bilder/12.png}{0.4}{bild12}{Bild 12}\\
+\\
+Auch hier wieder eine lokale Variante.\\
+
+\subsubsection*{Definition}
+UGG(V) = GG(V) $\cap$ UDG(V)\\
+Es gilt: UGG ist 1-lokale Topologiekontrolle\\
+$[UGG \subseteq UDG, UGG \subseteq GG]$\\
+Es gilt: $URNG \subseteq UGG$\\
+$[RNG \subseteq GG]$
+\\
+Es gibt Punktmengen V für die UGG(V) eine euklidische Spannung-Ratio von $\frac{(\lfloor \frac{n}{2}\rfloor-1)}{\sqrt{n}}$ erreicht.\\
+\sieheBild{Bilder/13.png}{0.4}{bild13}{Bild 13}\\
+Hier kann man zeigen, dass nur die Kreise $C(p_i, p_{i+1})$ leer sind.\\
+Damit ist der einzig mögliche Pfad von $p_1$ nach $p_n$ in GG durch $p_1 p_2 p_3$ $p_{1/2} p_{1/2+1}$ ... $p_n$ gegeben.\\
+Man rechnet leicht nach:
+\[
+	\doubleAbs{p} = 2 * \frac{\lfloor n/2 \rfloor -1}{\sqrt{n}}
+\]
+Somit gilt für $p_1$ und $p_n$ in UDG mit UDG-Radius R = 2:
+\[
+	\frac{\doubleAbs{\Pi_{UGG}(p_1, p_n)}}{\doubleAbs{\Pi_{UDG}(p_1, p_n)}} = \frac{2 * \frac{\lfloor n/2 \rfloor -1}{\sqrt{n}}}{2} = \frac{\lfloor n/2 \rfloor -1}{\sqrt{n}}
+\]
+Wir sagen auch UGG ist ein Euklidischer $\Omega(\frac{\floor{n/2}-1}{\sqrt{n}}) = \Omega(\sqrt{n})$
+Unit-Disk-Graph Spanner\\
+Frage: Ist GG auch ein euklidischer $O(\sqrt{n})$ -UDG-Spanner (d.h. $\Theta(\sqrt{n})$-UDG-Spanner)
+
+\subsection*{Delanay-Triangulation}
+Gegeben sei Punktmenge S.\\
+Voronoi-Region um $u \in S$:
+\[
+	VR_S(u) = \bigcap\limits_{v \in S \backslash \{u\}}{} H(u,v)
+\]
+Beispiel:\\
+\sieheBild{Bilder/14.png}{0.4}{bild14}{Bild 14}\\
+
+\subsubsection*{Voronoi-Diagramm}
+zu einer Punktemenge S = \{$u_1, ..., u_n$\}
+\[
+	VD(S) = \{VR_S(u_1), VR_S(u_2), ..., VR_S(u_n)\}
+\]
+Beispiel:
+\sieheBild{Bilder/15.png}{0.4}{bild15}{Bild 15}\\
+\sieheBild{Bilder/16.png}{0.4}{bild16}{Bild 16}\\
+Voronoi-Diagramm ist nicht degeneriert, wenn alle Voronoi-Punkte nichtdegeneriert sind.
+
+\subsubsection*{Definition: Delonoy-Triangulation zu Punktmenge S (Del(S))}
+Definition 1: Betrachte VD(S). Verbinde alle Punkte in S, deren Voronoi-Region eine gemeinsame Kante haben.
+\sieheBild{Bilder/17.png}{0.4}{bild17}{Bild 17}\\
+$[uv \in Del(S) \Leftrightarrow VR_S(u) \cap VR_S(v) \neq \phi]$
+\\
+Definition 2: Verbinde $u,v,w \in S$ mit einem Dreieck, wenn C(u,v,w) $\cap$ S = \{u,v,w\}
+ (d.h. enthält keine weiteren Punkte)
+ \\
+\sieheBild{Bilder/18.png}{0.4}{bild18}{Bild 18}
+ 
+ Definition 3: Verbinde $u,v \in S$ mit Kante, wenn ein Kreis C existiert u und v liegen auf Kreisbogen von C und $C \cap S = \{u,v\}$
+ \\
+\sieheBild{Bilder/19.png}{0.4}{bild19}{Bild 19}
+ 
+
+\section{Vorlesung 6}
+(Papier) \\
+Kanten nach Def. 1: $v_1v_2, v_2v_3, v_3v_4, v_4v_1$ \\
+Kanten nach Def. 2: $\emptyset$ \\
+Kanten nach Def. 3: wie Def. 1 \\
+Vereinfachende Annahme 1: Nicht-Cozirkularität; d.h. Punkte sind so
+angeordnet, dass keine vier Punkte auf einem Kries liegen \\
+Übung: Nihct-Cozirkularität $\Leftrightarrow$ Voronoi-Diagramm ist
+nicht-degeneriert \\
+Beobachtung 2: (Papier) \\
+Kanten nach Def. 1: $v_1v_2, v_2v_3, v_3v_4$ \\
+Kanten nach Def. 2: $\emptyset$ \\
+Kanten nach Def. 3: wie Def. 1 \\
+Vereinfachende Annahme 2: Nicht-Colinearität; d.h. keine drei Punkte
+liegen auf einer Geraden \\
+Übung: Für Punktmenge $S$ mit $|S| \geq 3$: nicht-Colinearität
+$\Leftrightarrow$ keine der Voronoi-Knoten ist eine unendliche Gerade \\
+Übung: Unter der Annahme der Nicht-Cozirkularität und Nicht-Colinearität
+sind die Delaunnay-Definitionen 1, 2 und 3 äquivalent \\
+\subsection*{Satz} Delaunny-Triangulierung ist planar
+
+\subsection*{Diskussion}
+Bisher $URNG := RNG \cap UDG$ \\
+$UGG := GG \cap UDG$ (sind lokale Topologien) \\
+Jetzt: $UDel := Del \cap UDG$ ist das auch eine lokale Topologie?
+$\rightarrow$ nein! Übung!
+\begin{enumerate}
+	\item $Del$ konstanter Spanner
+	\item daraus folgt nicht automatisch, dass $UDel \subseteq Del$ ein
+	konstanter UDG-Spanner ist; aber: Idee Spannerbeweis zu Del auf UDel
+	anpassen, um damit zu zeigen, dass UDel ein konstanter UDG-Spanner ist
+	\item werden Graphkonstrukte $G$ auf Basis von Del anschauen mit der
+	Eigenschaft: \begin{enumerate}
+		\item $G$ ist lokale Topologie
+		\item $UDel \subseteq$ G
+	\end{enumerate}
+\end{enumerate}
+
+\subsection*{Satz}
+$Del(S)$ ist ein $\frac{2\pi}{3\cos(\frac{\pi}{6})}$-Spanner ($=
+\frac{4\sqrt{3}}{9}\pi \approx 2,42$) \\
+Beweisidee: \\
+
+\subsection*{Lemma}
+betrachte Punktmenge $S$ (nicht cozirkulär und nicht colinear).
+Zeige zunächst für alle Knotentripel $(u,v,w) \in S^3$ mit folgender
+Eigenschaft: (Papier) \\
+Länge des kürzesten Pfades $DT(u,v)$ in $Del(S)$ von $u$ nach $v$ ist
+beschränkt durch die Länge des oberen Kreisbogens von $u$ nach $v$. (die
+gestrichelte Linie) \\
+Beweisführung: Sortiere alle so konstruierten Kreise bzgl. des Winkels
+$\Theta$ aufsteigend und zeige die Aussage per Induktion: \\
+I.A.: für Kreis mit kleinstem Winkel $\Theta$ zeigt man, dass $uv \in
+Del(S)$ gilt. \\
+I.S.: (Papier) betrachte den Punkt $t$ im oberen Kreisabschnitt, welcher
+den Winkel $\angle utv$ maximiert. (wenn kein solches t existiert, dann
+ist $uv \in Del(S)$) \\
+Betrachte die zwei kleineren Kreise $C_1$ und $C_2$, für die wir zeigen,
+dass die Induktionsvoraussetzung schon anwendbar ist. \\
+Aus den kürzesten Weglängen für $C_1$ und $C_2$ leiten wir die kürzeste
+Weglänge für $C$ her.
+
+\section{Vorlesung 7}
+\subsection*{Rückblick}
+\sieheBild{Bilder/20.png}{0.4}{bild20}{Bild 20}
+Del(S)\\
+$UDel(S) \subseteq G = Del(S) \cap UDG(S)$\\
+$UDel(S) \subseteq Del(S)$
+Del(S) 2,42-Spanner\\
+\sieheBild{Bilder/21.png}{0.4}{bild21}{Bild 21}
+$\doubleAbs{DT(u,v)} \leq r \cdot \Theta$\\
+\sieheBild{Bilder/22.png}{0.4}{bild22}{Bild 22}
+
+\subsection*{Beweis Fortsetzung}
+\sieheBild{Bilder/23.png}{0.4}{bild23}{Bild 23}
+$\doubleAbs{pH} > \doubleAbs{pq} = R$\\
+$\lightning$\\
+$\doubleAbs{DT(p,q)} \leq \doubleAbs{DT(p, t)}+ \doubleAbs{DT(t, q)}$\\
+Mögliche Reperatur des Beweises:\\
+\begin{enumerate}
+	\item Fall: $\doubleAbs{pt} \leq \doubleAbs{pq}$
+	\item Fall: $\doubleAbs{pt} > \doubleAbs{pq}$\\
+	Hier ist nicht notwenigerweise $pt \in UDG(S)$\\
+\end{enumerate}
+\sieheBild{Bilder/24.png}{0.4}{bild24}{Bild 24}
+Für Fall 2 verschiebe Kreis so, dass oberer Bereich leer wird;
+damit wird der Teil des Kreises im unteren Bereich größer. 
+Wenn unterer Berech immer noch leer, dann fertig. Ansonsten zeige, dass nur noch der Fall 1 eintreten kann.
+
+\subsection*{Satz}
+Sei S eine Punktmenge in der Ebene.
+Für beliebige Punkte p und q aus S gilt:
+$\frac{\doubleAbs{DT(p, q)}}{\doubleAbs{pq}} \leq \frac{2 \pi}{3 cos(\pi / 6)} = \frac{4 \sqrt{3}}{9} \pi \approx 2,42$\\
+Beweis: Es sei L die Gerade durch p und q.
+\sieheBild{Bilder/25.png}{0.4}{bild25}{Bild 25}
+$C_1$ und $C_2$ seien Kreise durch p und q mit Kreiszentren $O_1, O_2$ oberhalb bzw. unterhalb von L udn den Winkeln 
+$\measuredangle qp O_1 = \measuredangle qp O_2 = \measuredangle pq O_1 = \measuredangle pq O_2 = \frac{\pi}{6}$\\
+\sieheBild{Bilder/26.png}{0.4}{bild26}{Bild 26}
+Und Radius von $C_1, C_2$ sind $\doubleAbs{p O_1} = \doubleAbs{q O_1} = \doubleAbs{p O_2} = \doubleAbs{q O_2} = r_1$\\
+\sieheBild{Bilder/27.png}{0.4}{bild27}{Bild 27}
+\begin{enumerate}
+	\item Fall: LUNE ist leer\\
+	Dann ist $C_1$ unterhalb von L leer. Mit vorherigem Lemma folgt: \\
+	$\doubleAbs{DT(p, q)} \leq r_1 \cdot \Theta$\\
+	Es ist $\Theta_1 = \frac{4}{3} \pi$ und $r_1 = \frac{\doubleAbs{pq}}{2 cos(\pi / 6)}$\\
+	Somit ist. $\doubleAbs{DT(p,q)} \leq \frac{4}{3} \pi \cdot \frac{\doubleAbs{pq}}{R cos(\pi / 6)} = \frac{2 \pi}{3 cos(\pi / 6)} \cdot \doubleAbs{pq}$
+	\sieheBild{Bilder/28.png}{0.4}{bild28}{Bild 28}
+	\item Fall: Lune ist nicht leer \\
+	oBda sei die Menge $S' \subseteq S$ der Punkt x in der Lune mit $\doubleAbs{px} \leq \doubleAbs{qx}$ nicht leer\\
+	Es sei $\mathscr{C}$ die Menge der Kreise mit p liegt auf dem Kreisbogen und Kreismitteöpunkt liegt auf der Strecke $O_1 P$\\
+	\sieheBild{Bilder/29.png}{0.4}{bild29}{Bild 29}
+	oBdA existiere ein Punkt $t \in S'$, der nicht unterhalb von L liegt, sodass ein Kreis $G_3 \in \mathscr{C}$ existiert mit: 
+	\begin{itemize}
+			\item t liegt auf dem Kreisbogen von $G_3$
+			\item $C_3$ enthält keine weiteren Punkte aus S
+	\end{itemize}
+	\sieheBild{Bilder/30.png}{0.4}{bild30}{Bild 30}
+	$O_3$ sei der Mittelpunkt von $C_3$\\
+	Es sei : $\Theta = \measuredangle qpt, \varphi = \measuredangle pqt$\\
+	c = Distanz von t zum nächsten Punkt $t'$ auf L\\
+	$\alpha$ = oberer Winkel von $\measuredangle p O_3 t$\\
+	r = Radius von $G_3$\\
+	Beweis läuft nun per Induktion über alle möglichen Knotenpare (p,q) aufsteigend sortiert bzgl. $\doubleAbs{pq}$\\
+	I.A.: Für $\doubleAbs{pq} \leq \doubleAbs{xy} \forall x, y \in S$ ist offensichtlich C(p,q) leer.\\
+	\sieheBild{Bilder/31.png}{0.4}{bild31}{Bild 31}
+	Somit gibt es einen leeren Kreis um p und q und somit ist $pq \in Del(S)$\\
+	Also $\frac{\doubleAbs{DT(p, q)}}{\doubleAbs{pq}} = \frac{\doubleAbs{pq}}{\doubleAbs{pq}} = 1\leq \frac{2  \pi }{3 cos(\pi / 6)}$\\
+	I.S.: Betrachte pq. Nach Induktionsannahme gilt die Behauptung für alle kürzeren Kanten.\\
+	Es gilt stets: \\
+	$\doubleAbs{DT(p, q)} \leq \doubleAbs{DT(p, t)} + \doubleAbs{DT(t, q)}$\\
+	\sieheBild{Bilder/32.png}{0.4}{bild32}{Bild 32}
+	Da $C_3$ unterhalb von pt leer ist, folgt mit vorherigem Lemma $\doubleAbs{DT(p, t)} \leq \alpha \cdot r$\\
+	Nach Induktionsannahme gilt: $\doubleAbs{t, q} \leq \frac{2 \pi}{3 cos(\pi / 6)} \cdot \doubleAbs{tq}$
+	
+	
+\end{enumerate}
+
+
+
+\section{Vorlesung 8}
+Falls $t$ auf $L$ liegt: $\alpha = \frac{4}{3}\pi$ und $\displaystyle r
+= \frac{\|pt\|}{2\cos(\frac{\pi}{6})}$ \\
+$\displaystyle \|DT(p,q)\| \leq
+\frac{2\pi}{3\cos(\frac{\pi}{6})}(\|pt\|+\|tq\|) =
+\frac{2\pi}{3\cos\frac{\pi}{6}}\|pq\|$ \\
+Falls $t$ oberhalb von $L$ liegt: $\alpha = \ldots = \frac{4}{3}\pi -2
+\Theta$ \\ und mit Sinus-Satz $\displaystyle \|pt\| =
+\frac{c}{\sin\Theta}$ \\
+\ldots \\
+$\displaystyle r = \frac{c}{2\sin(\frac{\pi}{3}+2\Theta)\cdot\sin\Theta}$\\
+Für $\|tq\|$ gilt ebenfalls: $\displaystyle \|tq\| =
+\frac{c}{\sin\varphi}$ \\
+Substitution von $\|tq\|, r, \alpha$ in (*) ergibt: $\displaystyle
+\|DT(p,q)\| \leq
+2(\frac{2}{3}\pi-\Theta)\cdot\frac{c}{2\sin(\frac{\pi}{3}+2\Theta)\cdot\sin\Theta}+\frac{2\pi
+	c}{3\cos(\frac{\pi}{6}\cdot\sin\varphi)}$ \\
+Es sei $a$ die Distanz von $p$ nach $t'$ und $b$ die Distanz von $t'$
+nach $q$. Dann gilt: $\displaystyle \|pq\| = a+b = \frac{c}{\tan\Theta}
++ \frac{c}{\tan\varphi}$ \\
+Somit ist insgesamt: $\displaystyle \frac{\|DT(p,q)\|}{\|pq\|} \leq
+\underbrace{\frac{(\frac{2}{3}\pi-\Theta)/(\sin(\frac{\pi}{3}+\Theta)\cdot\sin\Theta)+2\pi/(3\cos(\frac{\pi}{6})\cdot\sin\varphi)}{\frac{1}{\tan}\Theta+\frac{1}{\tan}\varphi}}_{f(\Theta,\varphi):=}$
+\\
+und da $t$ innerhalb der LUNE, strikt oberhalb von $L$ und $t$ näher zu
+$p$ als $q$, folgt: $\varphi > 0, \Theta \geq \varphi$ und
+$\displaystyle \Theta+\varphi < \frac{\pi}{3}$ \\
+Mit Kurvendiskussion erhält man für die Funktion $f(\Theta,\varphi)$ und
+die Constraints $\varphi > 0, \Theta \geq \varphi$ und $\displaystyle
+\Theta+\varphi < \frac{\pi}{3}$: $\displaystyle
+\underset{0<\varphi\leq\Theta<\frac{\pi}{3}-\varphi}{f(\Theta,\varphi)}
+\leq \frac{2\pi}{3\cos(\frac{\pi}{6})}$ \\
+Somit folgt insgesamt $\displaystyle \frac{\|DT(p,q)\|}{\|pq\|} \leq
+\underset{0<\varphi\leq\Theta<\frac{\pi}{3}-\varphi}{f(\Theta,\varphi)}
+\leq \frac{2\pi}{3\cos(\frac{\pi}{6})}\Box$ \\
+\subsection*{Direkter DT Pfad von u nach v}
+Definition: direkter DT-Pfad von $u$ nach $v$\\
+Sei $S$ eine Punktmenge und $u,v \in S$: (Papier)
+\begin{itemize}
+	\item Betrachte $VD(S)$
+	\item Strecke von $u$ nach $v$ schneidet $Vor(b_0=u), Vor(b_1), \ldots
+	Vor(b_{k-1}=v)$
+	\item $Vor(b_i)$ und $Vor(b_{i+1})$ sind immer benachbart
+	\item d.h. $b_ib_{i+1}$ bilden Kante in $DT(S)$ bzw. $b_0b_1 \ldots
+	b_{k-1}$ ist ein Pfad in $DT(S)$
+	\item dieser Pfad ist der \underline{direkte} DT-Pfad von $u$ nach $v$.
+	\item direkter DT-Pfad ist \underline{einseitig} wenn alle Pfadknoten
+	oberhalb (bzw. unterhalb) von Geraden durch $u$ und $v$ liegen
+\end{itemize}
+Beobachtung (Beweis Übung): Einseitiger DR-Pfad von $u$ nach $v$ ist
+bzgl. der euklidischen Pfadlänge nach oben durch $\displaystyle
+\frac{\pi}{2}\|uv\|$ beschränkt (Papier) \\
+\subsection*{Lemma}
+für alle direkten DT-Pfade $u=b_0,b_1,\ldots,b_{k-1}=v$ gilt:
+alle $b_i \in C(u,v)$\\ Beweis (siehe Dobkin et. al.) (Papier) \\
+Korollar: $uv \in UDG(S) \Leftarrow$ direkter DT-Pfad von $u$ nach $v$
+besucht nur Kanten aus
+ $UDG(S)$\\
+  Beweis: offensichtlich (Papier) jede
+besuchte Kante $b_{i-1}b_i$ erfüllt $\|b_{i-1}b_i\| \leq \|uv\| \leq$
+UDG-Radius \\
+Dobkin-Beweis der Spanning-Ratio $\displaystyle \frac{1+\sqrt{5}}{2}\pi$
+der Delannay-Triangulierung: Konstruiert wird folgender Pfad $\Pi(u,v)$
+mit der Eigenschaft $\displaystyle \frac{\|\Pi(u,v)\|}{\|uv\|} \leq
+\frac{1+\sqrt{5}}{2}\pi$ \\
+Betrachte direkten DT-Pfad von $u$ nach $v$ (Papier)
+\begin{itemize}
+	\item Solange $DT(u,v)$ oberhalb von $L$ ist, verwende diesen Pfadabschnitt
+	\item Für jede Kante $b_ib_{i+1}$ des DT-Pfades, welche $L$ schneidet,
+	suche den nächsten Knoten $b_j$ welcher wieder oberhalb von $L$ liegt
+	und verbinde $b_i$ und $b_j$ mit folgender Abkürzung: \begin{enumerate}
+		\item \underline{entweder} wird der direkte DT-Pfad von $b_i$ nach $b_j$
+		gewählt \underline{oder}
+		\item es wird ein Pfad über folgende Knotenmenge konstruiert $M :=
+		\{q\in S : x(b_i) \leq x(q) \leq x(b_j)$ und q liegt oberhalb von L und
+		unterhalb von $b_ib_j\}$
+	\end{enumerate}
+\end{itemize}
+
+\section{Vorlesung 9}
+\subsection*{Wiederholung}
+\sieheBild{Bilder/33.png}{1.0}{bild33}{Bild 33}
+Für (1) gilt: $\doubleAbs{b_i b_j} \leq \doubleAbs{uv}$\\
+$b_i, b_j \in C(u,v)$\\
+Somit folgt für  $uv \in UDG(S)$, dass auch 
+$b_i, b_j \in UDG(S)$ \\
+Für $(2) gilt:$ Die Menge aller Punkte in T ist auch in C(u,v). Damit ist für jedes $(x,y) \in T^2: \doubleAbs{xy} \leq \doubleAbs{uv}$\\
+analog: $uv \in UDG \Rightarrow xy \in UDG$\\
+Insgesamt ist der im Dobkin-Beweis konstruierte Pfad $\Pi(u,v)$ auch ein Pfad im UDG, wenn $uv \in UDG$
+
+\subsection*{Satz}
+Für $u,v \in S$ (S ist Punktmenge) gilt:\\
+\[
+	\frac{\doubleAbs{\Pi_{UDel(S)}(u,v)}}{\doubleAbs{\Pi_{UDG(S)}(u,v)}} \leq \frac{1+\sqrt{5}}{2}*\pi
+\]
+
+\subsubsection*{Beweis}
+Sei $\Pi_{UDG}(u,v) = v_0 v_1 ... v_n, v_0 = u, v_n = v$ \\
+der Euklidisch kürzeste Pfad von u nach v in UDG.
+\\
+Für jede Kante $v_i v_{i+1}$ goibt es mit weniger Überlegung einen Pfad $\Pi(v_i, v_{i+1})$ in UDel(S) mit \[
+	\doubleAbs{\Pi(v_i, v_{i+1})} \leq \frac{1+ \sqrt{5}}{2} * \pi * \doubleAbs{v_i v_{i+1}}
+\]
+Somit ist \[
+	\doubleAbs{\Pi_{UDel(S)}(u,v)} \leq \doubleAbs{\Pi(v_0, v_1) \Pi(v_1, v_2) ... \Pi(v_{n-1}v_n))} = \sum\limits_{i = 0}^{n-1} \doubleAbs{\Pi(v_i, v_{i+1})} \leq  \sum\limits_{i = 0}^{n-1} \frac{1 + \sqrt{5}}{2} * \pi * \doubleAbs{v_i v_{i+1}}
+	= \frac{1+\sqrt{5}}{2} * \pi *  \sum\limits_{i = 0}^{n-1} \doubleAbs{v_i v_{i+1}}
+	= \frac{1 + \sqrt{5}}{2} * \pi * \doubleAbs{\Pi_{UDG(S)} (u,v)}
+\]
+
+\subsubsection*{Bemerkung}
+UDel(S) beinhaltet nur Kanten aus dem UDG und UDel(S) ist UDG-Spanner $\rightarrow$ interessanter Subgraph\\
+Aber: UDel(S) kann man nicht lokal konstruieren\\
+\sieheBild{Bilder/34.png}{0.4}{bild34}{Bild 34}
+
+\subsection*{Satz}
+Die Euklidische Spanning-Ration von UGG(V) über UD(V) ist durch $\sqrt{6n-12} * \frac{1+ \sqrt{5}}{2} * \pi$ nach oben Beschränkt
+
+\subsubsection*{Beweis}
+Wir betrachten zunächst UDel(V)\\
+Es sei: $xy \in UDel(V)$\\
+Entweder ist $xy \in UGG$, d.h. C(x,y) ist leer\\
+\sieheBild{Bilder/35.png}{0.4}{bild35}{Bild 35}
+oder existiert ein eindeutiges z, sodass \[
+\Delta xyz \in UDel(V)
+\]
+\sieheBild{Bilder/36.png}{0.4}{bild37}{Bild 36}
+(Wir nennen z auch Peak-Point im Folgenden)
+Aus dieser Beobachtung können wir folgenden Walk Sinnvoll definieren
+\begin{equation}
+SQ(x,y) = 
+\begin{cases}
+xy & , wenn xy \in UGG(V)\\
+W(x,z) \cup SW(z,y) & , wenn xy \in UGG(V) und\, z\, ist\, Peak-Point\, zu\, xy
+\end{cases} 
+\end{equation}
+
+
+Zunächst gilt: $|SW(x,y)| \leq 6n-12$
+\\
+In der Tat: Jede Kante in Udel ist adjazent zu nächsten zwei Dreiecken:\\
+\sieheBild{Bilder/37.png}{0.4}{bild37}{Bild 37}
+und wird damit höchstens zweimal besucht\\
+\sieheBild{Bilder/38.png}{0.4}{bild38}{Bild 38}
+Als planarer Graph hat UDel nach Euler-Formel maximal 3n-6 Kanten (n = Anzahl Knoten)\\
+Damit ist in der Tat: \\
+$|SW(x,y)| \leq 2 * (3n-6) = 6n-12$\\
+Wir zeugen nun: $\doubleAbs{SW(x,y)} \leq \sqrt{|SW(x,y)|} * \doubleAbs{xy}$\\
+Induktion über m = $|SW(x,y)|$\\
+Für m = 1 gilt offensichtlich: \\
+$\doubleAbs{SW(x,y)} = \doubleAbs{xy} = \sqrt{1} * \doubleAbs{xy}$\\
+Für $m > 1:$ ist SW(x,y) = SW(x,z) $\cup$ SW(z,y) für z ist Peak-Point\\
+Es sei k = SW(x,z) und damit m-k = $|SW(z,y)|$:\\
+$\doubleAbs{SW(x,y)} = \doubleAbs{SW(x,z)} + \doubleAbs{z,y} \leq \sqrt{|SW(x,z)|} * \doubleAbs{xz} + \sqrt{|SW(z,y)|} * \doubleAbs{zy}$\\
+$= \sqrt{k} * \doubleAbs{xz} + \sqrt{m-k} * \doubleAbs{zy}$\\
+Es ist somit zu zeigen\\
+$\sqrt{k} * \doubleAbs{xz} + \sqrt{m-k} * \doubleAbs{zy} \leq \sqrt{m} * \doubleAbs{xy}$ Für beliebiges $1 \leq k \leq m-1$\\
+(ist beweisbar, längere Analysis Rechnung)\\
+Es seien nun u und v beliebige Knoten aus V.\\
+Es sei: $\Pi_{UDG}(u,v)$ euklidisch kürzester Weg in UDG\\
+Es sei $\Pi_{Udel}(u,v)$ euklidisch kürzester Weg in UDel\\
+Wir wissen schon $\doubleAbs{\Pi_{UDel}(u,v)} \leq \frac{1+\sqrt{5}}{2} * \pi * \doubleAbs{\Pi_{UDG}(u,v)}$\\
+Außerdem existiert wie eben gezeigt für jede Kante $xy \in \Pi_{UDel}(u,v)$ existiert ein Pdad $P(x,y) \in UGG(V)$ mit $\doubleAbs{P(x,y)} \leq \sqrt{6n-12} * \doubleAbs{xy}$\\
+Für den Euklidisch kürzesten Weg $\Pi_{UGG}(u,v)$ in UGG(V) gilt nun:\\
+$\doubleAbs{\Pi_{UGG}(u,v)} \leq \bigcup\limits_{xy \in \Pi_{UDG}(u,v)} P(x,y)$( ein Möglicher Pfad von u nach v in UGG(V)) $= \sum\limits_{xy \in \Pi_{Udel}(u,v)} \doubleAbs{P(x,y)}$\\
+$\leq \sum\limits_{xy \in \Pi_{UDel}(u,v)} \sqrt{6n-12} * \doubleAbs{xy} = \sqrt{6n-12} * \sum\limits_{xy \in \Pi_{UDel}(u,v)} \doubleAbs{xy}$ = $\sqrt{6n-12} * \doubleAbs{\Pi_{UDG}(u,v)} \leq \sqrt{6n-12} * \frac{1+\sqrt{5}}{2} * \pi * \doubleAbs{\Pi_{UDG}(u,v)}$
+
+
+\section{Vorlesung 10}
+\subsection*{Graph-Familie $LDel^{(K)}(V)$}
+\begin{itemize}
+	\item Dreieck $\triangle uvw$
+	\item Dreieck $\triangle uvw$ erfüllt k-lokale Delaunay-Eigenschaft,
+	wenn $C(u,v,w)$ keinen Knoten aus $N_k(u) \cup N_k(v) \cup N_k(w)$
+	enthält und $\|uv\|, \|uw\|, \|vw\| \leq$ UDG-Radius
+	\item $\triangle uvw$ wird dann auch als k-lokales Delaunay-Dreieck
+	bezeichnet
+	\item $LDel^{(k)}(V)$ enthält genau die Kanten aus dem Gabriel-Graphen
+	$UGG(V)$ und alle Kanten aller möglichen k-lokalen Dreiecke \\
+	{[}GG-Kanten werden zusätzlich benötigt, um Zusammenhang
+	sicherzustellen. Beispiel: (Papier)]
+\end{itemize}
+
+\subsection*{Satz}
+$UDel(V) \subseteq LDel^{(k)}(V)$ \\
+Beweis: sei $uv \in UDel(V)$ \\
+1. Fall: $\exists \triangle uvw \in UDel(V)$ (mit $uv$ ist Teil von
+$\triangle uvw$) Somit ist $C(u,v,w)$ leer (d.h. enthält keine weiteren
+Knoten aus $V$) und alle Kanten $uv,uw,vw$ sind in $UDG(V)$. Somit ist
+für jedes $k \ \triangle uvw$ auch ein $k$-lokales Delaunay-Dreieck (für
+beliebige $k$) (Papier) $N_k(u) \cup N_k(v) \cup N_k(w) \subseteq V$ \\
+Folglich ist $\triangle uvw \in LDel^{(k)}(V)$ und damit auch $uv \in
+LDel^{(k)}(V)$ \\
+2. Fall: $uv$ ist gemeinsame Kanten von zwei Dreiecken (Papier) in
+$Del(V)$ und die beiden Dreiecke $\triangle uvw$ und $\triangle uvz$
+erfüllen, dass mindestens eines der Paare $(u,w)$ und $(v,w)$ bzw.
+$(u,z)$ und $(v,z)$ keine UDG-Nachbarn sind. (Papier) $C(u,v,w)$ und
+$C(u,v,z)$ sind leer, da $\triangle uvw$ und $\triangle uvz \in Del(V)$.
+Desweiteren sind $w$ noch $z$ in $C(u,v)$ (dies würde sonst erfordern:
+$\|uw\|,\|vw\| \leq \|uv\|$ und $\|uz\|,\|vz\| \leq \|uv\|$) Somit ist:
+$C(u,v) \subseteq C(u,v,w) \cup C(u,v,z)$ Da $C(u,v,w)$ und $C(u,v,z)$
+leer, ist auch $C(u,v)$ leer, d.h. $uv \in UGG \subseteq LDel^{(k)}(V)
+\Rightarrow uv \in LDel^{(k)}(V)$ \\
+3. Fall: $uv$ ist eine Kante nur eines einzigen Delaunay-Dreiecks
+$\triangle uvw$ in $UDel(V)$ und mindestens eines der Paare $(u,w)$ oder
+$(v,w)$ sind keine UDG-Nachbarn. \\
+o.B.d.A. gelte $uw \notin UDG(V)$ (Papier) $H_1$ = Halbebene oberhalb
+von L, $H_2$ = Halbebene unterhalb von L \\
+Auch hier ist wie vorhin: $w \notin C(u,v)$ Damit ist $C(u,v) \cap H_1$
+leer. Außerdem ist die Halbebene $L_2$ leer, da kein Delaunay-Dreieck in
+dieser Ebene existiert (Delaunay-Triangulierung umfasst die konvexe
+Hülle um $V$) Somit ist auch $C(u,v) \cap H_2$ leer. Damit ist $C(u,v)$
+leer und somit $uv \in UGG(V) \subseteq LDel^{(k)}(V) \Box$ \\
+Korollar: $LDel^{(k)}(V)$ ist ein Euklidischer $\displaystyle
+\frac{1+\sqrt{5}}{2}\cdot\pi$-UDG-Spanner \\
+Beweis: schon gezeigt: $UDel(V)$ ist $\displaystyle
+\frac{1+\sqrt{5}}{2}\cdot\pi$-Spanner von UDG. Mit $LDel^{(k)(V)}
+\supseteq UDel(V)$ folgt die Behauptung. $\Box$ \\
+{[}Allgemein ist $F \subseteq G \subseteq H$ und ist $F$ ein $t$-Spanner
+von $H$, dann ist auch $G$ ein $t$-Spanner.] \\
+Beobachtung: $LDel^{(1)}(V)$ ist i.A. nicht planar. (Papier)
+\begin{itemize}
+	\item $u,v,w,x$ sehen sich gegenseitig
+	\item $y$ wird von $x$ gesehen
+	\item $x$ ist nicht in $C(u,v,w)$
+\end{itemize}
+Es gilt: $\triangle uvw$ ist ein 1-lokales Delaunay-Dreieck (kein
+Nachbar von $u,v,w$ liegt in $C(u,v,w)$) Somit ist insbesondere $uv \in
+LDel^{(1)}(V)$ \\
+Es gilt: $xy$ ist eine GG-Kante ($C(x,y)$ ist leer) Somit ist auch $xy
+\in LDel^{(1)}(V)$. $xy$ und $uv$ schneiden sich aber. 
+
+\subsection*{PDel}
+Definition: Planarized $LDel^{(1)}$ (kurz $PLDel(V)$) beinhaltet alle
+Kanten aus $UGG(V)$ und nur die 1-lokalen Delaunay-Dreiecke $\triangle
+uvw$, für die kein Nachbarknoten $x \in N(u) \cup N(v) \cup N(w)$
+existiert, mit $xy \in LDel^{(1)}(V)$ und $y \in C(u,v,w)$ (Papier) \\
+
+\subsection*{Lemma 1}
+ Eine Gabriel-Graph-Kante $uv$ schneide ein lokales
+Delaunay-Dreieck $\triangle xyz$. Dann können $u$ und $v$ nicht
+gleichzeitig außerhalb von $C(x,y,z)$ liegen. „Beweis:“ (Papier)
+
+
+\section{Vorlesung 11}
+\subsection*{Lemma 2}
+ Es seien $\triangle xyz$ und $\triangle uvw \in LDel^{(k)}(V),
+k \geq 1$ \\
+Die Kante $uv$ schneide $\triangle xyz$ und $C(u,v,w)$ beinhalte keinen
+der Knoten $x,y,z$. (Papier) Dann beinhaltet $C(x,y,z)$ entweder $u$
+oder $v$. \\
+Beweis: \ldots \\
+
+\subsection*{Satz}
+$PLDel(V)$ ist planar. \\
+Beweis: Zwei GG-Kanten schneiden sich nie. Ein Schnitt beinhaltet somit
+immer ein 1-lokales Delaunay-Dreieck $\triangle xyz$. Annahme: Kante
+$uv$ schneide $xy$. (Papier) Mit vorigen beiden Lemmata folgt: entweder
+ist $u$ oder $v$ in $C(x,y,z)$. Annahme: $v$ ist in $C(x,y,z)$ \\
+Mit der Dreiecksungleichung: (Papier) \\
+$\|ux\| \leq \|up|+\|px\|$ \\
+$\|yv\| \leq \|yp\|+\|pv\|$ \\
+Somit ist: $\|ux\| + \|yv\| \leq (\|up\| + \|pv\|) + (\|xp\|+\|py\|) =
+\|uv\|+\|xy\| \leq 2R$ ($R$ sei der UDG-Radius) \\
+Da $\triangle xyz$ ein 1-lokales Dreieck ist, gilt: $v \notin N(x) \cup
+N(y) \cup N(z)$ und somit ist $\|vy\| \geq R$ \\
+Somit folgt insgesamt: $\|ux\| \leq 2R-\|vy\| < R$ \\
+Somit ist $u \in N(x)$ und $uv \in LDel^{(1)}(V)$ \\
+Mit $v \in C(x,y,z)$ ist damit auch $\triangle xyz$ kein Dreieck in
+$PLDel(V) \lightning \Box$ \\
+
+\subsection*{Satz}
+$LDel^{(k+1)}(V) \subseteq LDel^{(k)}(V)$ \\
+Beweis: Jede Kante $e \in LDel^{(k+1)}(V)$ erfüllt: \begin{enumerate}
+	\item $e$ ist GG-Kante oder
+	\item $\exists u,v,w$ mit $e=uv$ und $C(u,v,w)$ enthält keine Knoten aus
+	$N_{k+1}(u) \cup N_{k+1}(v) \cup N_{k+1}(w)$ wegen $N_k(x) \subseteq
+	N_{k+1}(x)$ folgt auch $C(u,v,w)$ enthält keinen Knoten aus $N_k(u) \cup
+	N_k(v) \cup N_k(w)$.
+\end{enumerate}
+Also ist $e \in LDel^{(k)}(V)$ auch erfüllt. $\Box$ \\
+
+\subsection*{Satz}
+$PLDel(V) \supseteq LDel^{(2)}(V)$ \\
+Beweis: Sowohl $PLDel$ als auch $LDel^{(2)}$ beinhalten alle GG-Kanten.
+Damit genügt es die 2-lokalen Dreiecke aus $LDel^{(2)}$ zu betrachten.
+Sei $\triangle uvw \in LDel^{(2)}(V)$. Damit gibt es keinen 1- oder
+2-Hop-Nachbarn von $u,v,w$, der in $C(u,v,w)$ liegt. (Papier) \\
+Somit ist insbesondere: $\cancel{\exists} x \in N_1(u) \cup N_1(v) \cup
+N_1(w)$ mit $xy \in LDel^{(1)}(V)$ und $y \in C(u,v,w)$. Folglich ist
+$\triangle xyz \in PLDel(V) \Box$ \\
+Korollar: $LDel^{(k)}(V), k \geq 2$ ist planar. \\
+Beweis: dies folgt aus $PLDel(V)$ ist planar und $PLDel(V) \supseteq
+LDel^{(2)}(V) \supseteq \ldots \supseteq LDel^{(k)}(V) \Box$ 
+
+\subsection*{RDG}
+Definition: Restricted Delaunay Graph ($RDG(V)$) für $UDG(V)$ \\
+$uv \in RDG(V) :\Leftrightarrow uv \in UDG(V)$ und $\forall w \in N(u)
+\cap N(v): uv \in Del(N(w))$ (Papier) [Bemerkung: in dieser Definition
+beinhaltet $N(u)$ auch $u$ bzw. $N(v)$ auch $v$.] \\
+
+\subsection*{Satz}
+$UDel(V) \subseteq RDG(V)$ \\
+Beweis: \begin{itemize}
+	\item $uv \in UDel(V) \Rightarrow uv \in UDG(V)$ und es existiert ein
+	Kreis $C$ mit $u$ und $v$ sind auf dem Kreisbogen, so dass $C$ keinen
+	weiteren Punkt aus $V$ enthält. (Papier)
+	\item Damit enthält $\forall w \in N(u) \cap N(v)$ der Kreis $C$ auc
+	keinen Knoten aus $N(w) \subseteq V$
+	\item Somit ist $uv \in Del(N(w)) \forall w \in N(u) \cap N(v)$
+	\item Folglich ist $uv \in RDG(V) \Box$
+\end{itemize}
+
+\subsection*{Lemma}
+Sei $uv, wx \in UDG(V)$. Wenn $uv$ und $wx$ sich schneiden, dann
+ist mindestens einer der Endpunkte mit allen anderen verbunden. \\
+Beweis: Sei $p$ der Schnittpunkt (Papier) \\
+Mit Dreiecksungleichung folgt: \\
+$\|uw\| \leq \|up\| + \|pw\|$ \\
+$\|vx\| \leq \|vp\| + \|px\|$ \\
+Somit: $\|uw\| + \|vx\| \leq (\|up\|+\|pv\|)+(\|xp\|+\|pw\|) =
+\|uv\|+\|xw\| \leq 2R$ ($R$ sei der UDG-Radius) \\
+Somit ist $\|uw\| \leq R$ oder $\|vx\| \leq R$ \\
+Analog ist: $\|ux\| \leq R$ oder $\|vw\| \leq R$ \\
+Für alle 4 möglichen Kombinationen ist ein Punkt mit allen anderen
+verbunden. $\Box$ \\
+
+\subsection*{Satz}
+$RDG(V)$ ist planar \\
+Beweis: Annahme: es existieren kreuzende Kanten $uv, wx \in RDG(V)$.
+(Papier) Mit $uv,wx \in RDG \Rightarrow uv, wx \in UDG$. Mit vorigem
+Lemma folgt, dass mindestens einer der Knoten mit allen anderen
+verbunden ist. Dies sei o.B.d.A. der Knoten $u$.
+\begin{itemize}
+	\item Die Kante $wx$ existiert in $RDG(V)$ nur, wenn unter Anderem für
+	$u \in N(w) \cap N(x)$ gilt: $wx \in Del(N(u))$
+	\item Die Kante $uv$ existiert in $RDG(V)$ nur, wenn unter Anderem für
+	$u \in N(u) \cap N(v)$ gilt: $uv \in Del(N(u))$
+	\item Damit ist $wx$ und $uv \in Del(N(u))$ und $wx$ kreuzt die Kante $uv$.
+\end{itemize}
+Das ist Widerspruch zur Planarität von $Del(N(u)) \ \Box$ \\
+\subsection*{Partielle Delaunay-Triangulierung PDT(S)}
+Wir betrachten UDG mit UDG-Radius $R$. Für Punktmenge $S$ verbindet die
+partielle Delaunay-Triangulierung $PDT(S)$ alle Punkte $u,v \in S$ nach
+folgender Regel:
+\begin{enumerate}
+	\item $\|uv\| \leq R$ und
+	\item $uv \in GG(S) \cap UDG(S)$ oder
+	\item sei $w \in S \backslash \{u,v\}$ ein Knoten, der $\alpha := \angle
+	uwx$ maximiert (d.h. $\angle uwx \geq \angle uxv \forall x \in S
+	\backslash\{u,v\}$) \\ es muss gelten: $C(u,v,w) \cap
+	N[u]\backslash\{u,v,w\} = \emptyset$ und $\displaystyle \sin(\alpha)
+	\geq \frac{\|uv\|}{R}$
+\end{enumerate}
+[Punkt 3 bedeutet: (Papier)]
+
+
+\section{Vorlesung 12}
+\subsection*{Partieller Unit-Delaunay-Graph (PuDel(S))}
+\begin{itemize}
+	\item Gerichtete lokale Delaunay-Kante \\
+	Sei $u,v \in S$ mit $v \in N(u)$ (d.h. $\|uv\| \leq R$) \\
+	$uv$ ist eine gerichtete Delaunay-Kante, wenn $uv \in Del(N(u))$
+	\item Lokale Detektierbarkeit \\
+	Eine gerichtete Delaunay-Kante $uv$ ist lokal detektierbar gdw.
+	$\exists$ Punkt $p$, so dass folgendes gilt: $p \in VR_{N(u)}^{(u)} \cap
+	VR_{N(u)}^{(v)}$ mit $\|up\| \leq \frac{R}{2}$ (Papier)
+	\item Der partielle Unit-Delaunay-Graph $PuDel(S)$ beinhaltet genau alle
+	lokal detektierbaren gerichteten Delaunay-Kanten
+\end{itemize}
+Hilfssatz 1: Für jede Punktmenge $S$ und $u,v \in S$: $uv \in PuDel(S)
+\Leftrightarrow uv \in UDel(S)$ und $\exists p : p \in VR_S(u) \cap
+VR_S(v)$ mit $\|up\| \leq \frac{R}{2}$
+\begin{center} $\Downarrow$ \end{center}
+Hilfssatz 2: Für $uv \in UDel(S)$ gilt: der direkte DT-Pfad von $u$ nach
+$v$ in $Del(S)$ ist auch ein Pfad in $PuDel(S)$
+\begin{center} $\Downarrow$ \end{center}
+Hilfssatz 3: Für jede Kante $uv \in UDel(S)$ existiert ein Pfad
+$\Pi(u,v) \in PuDel(S)$ mit $\|\Pi(u,v)\| \leq \frac{\pi}{2}\cdot\|uv\|$ \\
+
+\subsection*{Satz}
+$PuDel(S)$ ist ein Euklidischer $\frac{\pi}{2}$-Spanner von
+$UDel(S)$ \\
+Beweis: Betrachte $u,v \in S$. Es sei $\Pi_{UDel}(u,v) = u_0u_1\ldots
+u_k$ der kürzeste Weg von $u$ nach $v$ in $UDel(S)$. Mit Hilfssatz 3
+existiert für jede Kante $u_iu_{i+1} \in UDel(S)$ ein Pfad $u_i \leadsto
+u_{i+1}$ in $PuDel(S)$ mit $\|u_i \leadsto u_{i+1}\| \leq \frac{\pi}{2}
+\cdot \|u_iu_{i+1}\|$ (Papier) \\
+Für den kürzesten Weg $\Pi_{PuDel}(u,v)$ von $u$ nach $v$ in $PuDel$
+gilt: $\displaystyle \|\Pi_{PuDel}(u,v)\| \leq \|u_0 \leadsto u_1
+\leadsto u_2 \leadsto u_3 \leadsto \ldots \leadsto u_k \| =
+\sum_{i=0}^{k-1}\|u_i \leadsto u_{i+1}\| \leq
+\sum_{i=0}^{k-1}\frac{\pi}{2}\cdot\|u_iu_{i+1}\| =
+\frac{\pi}{2}\sum_{i=0}^{k-1}\|u_iu_{i+1}\| =
+\frac{\pi}{2}\cdot\|\Pi_{UDel}(u,v)\|$ \\
+Folglich: $\displaystyle
+\frac{\|\Pi_{PuDel}(u,v)\|}{\|\Pi_{UDel}(u,v)\|} \leq \frac{\pi}{2} \
+\Box$ \\
+Korollar: $PuDel(S)$ ist ein Euklidischer $\displaystyle
+\frac{1+\sqrt{5}}{4}\cdot\pi^2$ Spanner des UDG \\
+Beweis: \\
+$UDel$ ist ein $\displaystyle \frac{1+\sqrt{5}}{2}\cdot\pi$-Spanner des
+$UDG$ \\
+$PuDel$ ist ein $\frac{\pi}{2}$-Spanner des $UDel$ \\
+Somit ist $PuDel$ ein $\displaystyle
+\frac{1+\sqrt{5}}{2}\cdot\pi\cdot\frac{\pi}{2}$-Spanner des $UDG$. \\
+Zeige, dass ganz allgemein gilt: Ist $F$ ein $c$-Spanner von $G$ und $G$
+ein $d$-Spanner von $H$, dann ist $F$ ein $c\cdot d$-Spanner von $H$.
+(Übung) 
+
+\subsection*{CLVE}
+Definition: Common Local Voronoi Edge $CLVE(u,v)$ \\
+$CLVE(u,v) := VR^{(u)}_{N(u)} \cap VR_{N(u)}^{(v)} \cap VR_{N(u)}^{(u)}
+\cap VR_{N(v)}^{(v)}$ (Papier) \\
+Hilfssatz: $PuDel(S) \subseteq PDT(S)$ [$\|S\| \geq 3$, $S$ ist
+nicht-degeneriert und nicht-colinear] \\
+Beweis: zeige $uv \in PuDel(S) \Rightarrow uv \in PDT(S)$ \\
+Aus $uv \in PuDel(S)$ folgt:
+\begin{enumerate}
+	\item $\|uv\| \leq R$ (UDG-Radius) und
+	\item $\exists p \in VR_{N(u)}^{(u)} \cap VR_{N(u)}^{(v)}$ mit $\|up\| =
+	\|vp\| \| \leq \frac{R}{2}$
+\end{enumerate}
+Betrachte $CLVE(u,v)$ \\
+{[}Übung: $CLVE(u,v)$ ist keine Gerade, wegen nicht-degeneriert-Annahme.
+$CLVE(u,v)$ ist kein einzelner Punkt, wegen nicht-Cozirkularität.] \\
+Sonst ist $CLVE(u,v)$ entweder
+\begin{enumerate}
+	\item Halbgerade oder
+	\item Strecke $[a,b)$
+\end{enumerate}
+Betrachte 2. (1. ist analog beweisbar): (Papier) \\
+Es sei $m = uv \cap B(u,v)$ und $g$ die Gerade durch $u$ und $v$ \\
+1. Fall: $a$ und $b$ liegen auf unterschiedlichen Seiten von $g$ und
+$a,b \neq m$ (Papier) \\
+Wegen $a \in VR_{N(u)}^{(u)}$ und $a \in VR_{N(v)}^{(v)}$ gilt für alle
+$l \in N(u) \cup N(v)$: $\|ua\| = \|va\| \leq \|la\|$, d.h. das Innere
+von Kreis $C_{\|ua\|}(a)$ ist leer. Analog is das Innere von
+$C_{\|ub\|}(b)$ leer. Wegen $C(u,v) \subseteq C_{\|ub\|}(b) \cup
+C_{\|ua\|}(a)$ ist damit auch $C(u,v)$ leer. Folglich ist $uv \in UDG(S)
+\cap GG(S)$ und somit $uv \in PDT(S)$.
+
+\section{Vorlesung 13}
+\subsection*{Zusammenfassung der letzten Vorlesung}
+PnDel = PDT\\
+$uv \in Del(N(u))$\\
+$\exists p \in VR_{N(u)}(u) \cap VR_{N(u)}$
+$uv \in Del(S) \Rightarrow \exists u \leadsto v \in PuDel(S)$\\
+$\doubleAbs{u \leadsto v} \leq \frac{\pi}{2}\doubleAbs{uv}$
+\\
+\sieheBild{Bilder/39.png}{0.4}{bild39}{Bild 39}
+\\
+PuDel = PDT\\
+\grqq PaDel $\subseteq$ PDT \grqq\\
+CLVE(u,v) = $VR_{N(u)}(u) \cap VR_{N(u)}(v) \cap VR_{N(v)}(u) \cap VR_{N(v)}(v)$\\
+Zwei Fälle:\\
+\begin{enumerate}
+	\item Bild was er zu schnell weggewischt hat...
+	\item a und b liegen auf einer seite von g
+\end{enumerate}
+
+\subsection*{Satz}
+Es gilt: a ist Voronoi-Knoten in mindestens einer der beiden Voronoir Diagramme VD(N(u)) oder VD(N(v))\\
+oBdA sei Knoten in VD(N(u)). Dann $\exists l \in N(u)$ mit a = $VR_{N(u)}(u) \cap VR_{N(u)}(v) \cap VR_{N(u)}(l)$\\
+\sieheBild{Bilder/40.png}{0.4}{bild40}{Bild 40}
+Der Kreis C(u,v,l) enthält keinen weiteren Knoten aus N(u). (Leere Kreisregel der dualen Delawnay-Triangulierung)
+\sieheBild{Bilder/41.png}{0.4}{bild41}{Bild 41}
+Da $uv \in PuDel$ gilt nach Definition:\\
+$\exists p \in VR_{N(u)}(u) \cap VR_{N(u)}(v)$ mit $\doubleAbs{up} \leq R/2$ (R entspricht UDG-Radius)\\
+Es ist offensichtlich: \\
+$R/2 \geq \doubleAbs{up} \geq \doubleAbs{ua}$ und damit ist der Kreisdurchmesser $\leq R$\\
+damit haben wir: \\
+$\doubleAbs{uv} \subseteq R$\\
+$sin(\alpha) \geq \frac{\doubleAbs{uv}}{R}$ \\
+C(u,v,l) ist leer\\
+Somit ist uv auch eine Kante in PDT(S)
+\sieheBild{Bilder/42.png}{0.4}{bild42}{Bild 42}
+\subsection*{Hilfssatz}
+PDT(S) $\subseteq$ PuDel(S) \\
+
+\subsubsection*{Beweis}
+zeige $uv \in PDT(S) \Rightarrow uv \in PuDel(S)$\\
+mit $uv \in PDT(S)$ folgt: \\
+$\doubleAbs{uv} \leq R$ und \\
+$uv \in GG(S) \cap UDG(S)$ oder \\
+es existiert ein $l \in N(u)$ mit \\
+$C(u,v,l) \cap N(u) \backslash \{u,v,l\} = \emptyset$ und \\
+für $\alpha = \measuredangle u l v$ ist $sin(\alpha) \geq \frac{\doubleAbs{uv}}{R}$
+Mehrere Fälle:
+\begin{enumerate}
+	\item $uv \in GG(S) \cap UDG(S)$\\
+\sieheBild{Bilder/43.png}{0.4}{bild43}{Bild 43}
+	Betrachte C(u,v)\\
+	Es ist $C(u,v) \cap S \backsim \{u,v\} = \emptyset$ \\
+	Somit liegt m zu keinem Punkt näher als zu u und v\\
+	Wegen $N(u)  \subseteq S$ gilt diese Aussage für N(u)\\
+	Somit ist $m \in VR_{N(u)}(u) \cap VR_{N(u)}(v)$\\
+	Desweiteren ist $\doubleAbs{uv} \leq R$ und $\doubleAbs{um} = \doubleAbs{uv}/2$\\
+	Somit ist $\doubleAbs{um} \leq R/2$\\
+	Damit erfüllt uv die Def. für PuDel, d.h. $uv \in PuDel(S)$
+	
+	\item $\exists l \in N(u):$ \\
+	$C(u,v,l) \cap N(u) \backslash \{u,v,l\} = \emptyset$ und $sin(\alpha) \geq \frac{\doubleAbs{uv}}{2}$, $\alpha = \measuredangle u l v$\\
+\sieheBild{Bilder/44.png}{0.4}{bild44}{Bild 44}
+	Da C(u,v,l) keine weiteren Punkte aus N(u) enthält, erfüllt der Mittelpunkt P von C(u,v,l): \\
+	$\doubleAbs{up} = \doubleAbs{vp} \doubleAbs{lp} < \doubleAbs{xp}$\\
+	$\forall x \in N(u) \backslash \{u,v,l\}$\\
+	somit ist $p \in VR_{N(u)}(u) \cap VR_{N(u)}(v) \neq \emptyset$\\
+	Mit $sin(\alpha) \geq \frac{\doubleAbs{uv}}{R} \Rightarrow$ Durchmesser von $C(u,v,l) \leq R$\\
+	Somit ist $\doubleAbs{up} \leq R/2$\\
+	Damit ist wieder die Vorraussetzung für PuDel erfüllt, also\\
+	$uv \in PuDel(S)$\\
+	Korollar: PuDel(S) = PDT(S)\\
+	Beweis folgt unmittelbar aus den beiden Hilfssätzen. 
+	
+\end{enumerate}
+
+\subsection*{Zusammenfassung}
+Im folgenden: \circlearound{xxx} um ein Vorkommen des Graph entspricht nicht lokal konstruierbar
+\vspace*{10mm}
+\\
+\noindent
+\circlearound{EMST} $\subseteq$ LMST (maximaler Grad ist 6) $\subseteq$ URNG (keine Grad-Beschränkung) $\subseteq$ RNG $\subseteq$ UGG $\subseteq$ GG
+\vspace*{10mm}
+\\
+URNG $\leftarrow$ Euklidischer $\Theta(n)$ Spanner des UDG\\
+UGG $\leftarrow$ Euklidischer $\Theta(\sqrt{n})$ Spanner des UDG
+\vspace*{10mm}
+\\
+UGG $\subseteq$ PDT $\subseteq$ UDel
+\vspace*{10mm}
+\\
+PDT = PuDel $\leftarrow$ Eukldischer $\frac{1+ \sqrt{5}}{4} * \pi^2$ UDG-Spanner
+\vspace*{10mm}\\
+
+\circlearound{UDel} $\subseteq$ $LDel^{(k)} \subseteq LDel^{(k-1)} \subseteq ... \subseteq LDel^{(2)}$ 
+\vspace*{10mm}
+\\
+UDel $\leftarrow$ Euklidischer $\frac{1 + \sqrt{5}}{2} * \pi$ UDG-Spanner\\
+PLDel $\subseteq LDel^{(1)} \subseteq UDG$
+(Von Anfang bis PLDel ist alles planar)
+\vspace*{10mm}
+\\
+$UDel \subseteq RDG \subseteq UDG$\\
+$UDel \subseteq \circlearound{Del}$\\
+Del $\leftarrow$ Euklidischer $\frac{2\pi}{3 cos(\pi / 6)}$ Spanner des vollständigen euklidischen Graphen
+UDel $\leftarrow$ Euklidischer $\frac{1 + \sqrt{5}}{2}$ UDG-Spanner
+
+\subsubsection*{Original}
+\sieheBild{Bilder/45.png}{0.4}{bild45}{Bild 45}
+
+\section{Vorlesung n-2}
+\subsection*{Motivation}
+\begin{enumerate}
+	\item Nur anhand des Pfades werden Nachrichten erzeugt. \sieheBild{Bilder/46.png}{0.4}{bild46}{Bild 46}
+	\item a) Lokaler Broadcast \\
+			b) alle nachbarn antworten\\
+			c) Berechne PDT lokal\\
+			\sieheBild{Bilder/47.png}{0.4}{bild47}{Bild 47}
+	\item Besser wäre \\
+			a) lokaler Broadcast\\
+			b) idealerweise antworten nur die PDT-Nachbarn $\rightarrow$ PDT Graph damit schon konstruiert\\
+			das ist dann im Idealfalle Nachrichtenoptimal
+			HIEER KÖNNTE IHR BILD STEHEN
+\end{enumerate}
+
+\subsection{Zur Definition des reaktiven PDT-Algorithmus}
+eine (beweisbar) äquivalente PDT-Definition: \\
+$\forall uv \in UDG$ gilt : $uv \in PDT \Leftrightarrow \forall w \in C(u,v)$ gilt:
+\begin{enumerate}
+	\item $C(u,v) \cap \overline{H^w(u,v)}$ ist leer und
+	\item $sin(\alpha) \geq \doubleAbs{uv} \text{ mit } \sin \alpha  \measuredangle uwv$
+\end{enumerate}
+[ Hierbei ist $H^(u,v)$ die Halbebene bzgö u und v die w enthält]\\
+\sieheBild{Bilder/48.png}{0.4}{bild48}{Bild 48}
+\\
+$\overline{H^w(u,v)}$ ist das Komplement von $H^(u,v)$
+\\
+Algorithmusbeschreibung: Reactive PDT
+\begin{enumerate}
+	\item Start\\
+	\sieheBild{Bilder/49.png}{0.4}{bild49}{Bild 49}
+	\\
+	\begin{itemize}
+		\item sende RTS blind per Broadcast an alle Nachbarn
+		\item setze Time t(n) auf $t_{max}$ [$t_{max}$ ist ein Parameter; beliebige aber feste Wartezeit bis das Verfahren fertig ist]
+	\end{itemize}
+	\item RTS-Empfang in einem Knoten v:\\
+	u $\overset{RTS}{\rightarrow}$ v
+	\\
+	\begin{itemize}
+		\item Initialisiere Menge der bekannten Knoten $S(v) = \emptyset$
+		\item setze Maximalwinkel auf $\pi / 2$\\
+		$\alpha_{max} (v) = \pi/ 2$
+		\item setze Timer t(v) auf $\doubleAbs{uv} * t_{max}$ [Annahme: UDG Radius ist 1, ansonsten setze auf Abstand $\frac{\doubleAbs{uv}}{R} * t_{max}$]
+	\end{itemize}
+	\item Timer t(v) in Knoten v abgelaufen:\\
+	\sieheBild{Bilder/50.png}{0.4}{bild50}{Bild 50}
+	\begin{itemize}
+		\item sende CTS mit Positioninfo von v per Broadcast an alle Nachbarn von v (damit wird natürlich auch unter anderem der Ursprungsknoten u erreicht)
+	\end{itemize}
+	\item Knoten v hört CTS von Knoten z\\
+	\sieheBild{Bilder/51.png}{0.4}{bild51}{Bild 51}
+	\begin{itemize}
+		\item Ergänze z in der Menge der bekannten Nachbarn S(v) = $S(v) \cup \{z\}$
+		\item überprüfe ob uv bzgl. S(v) die PDT Bedingung verletzt. \begin{itemize}
+			\item falls ja: Lösche Timer t(v) (d.h. v wird kein cts generieren)
+			\item falls nein: Testen ob $\alpha = \measuredangle uzv > \alpha_{max}(v)$
+			\begin{itemize}
+				\item falls ja: $\alpha_{max} = \alpha$, aktualisiere Timer t(v) auf $\frac{\doubleAbs{uv}}{sin(\alpha)} * t_{max}$ [d.h. der Timeout wird proportional zum Durchmesser von Kreis um    C(u,z,v) gesetzt][Annahme ist UDG Radius ist 1; ansonsten setze Timer auf $\frac{\doubleAbs{uv}}{sin(\alpha)} * \frac{1}{R} * t_{max}$\\
+				Es ist hier  $\frac{\doubleAbs{uv}}{sin(\alpha)} \leq R$]
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\item u empfängt CTS von v\\
+	$u \overset{CTS}{\leftarrow} v$
+	\begin{itemize}
+		\item Füge v zur Liste der PDT Nahbarn hinzu
+		\item Wenn Timeout t(u) abgelaufen ist, ist die Menge der PDT Nachbarn vollständig
+	\end{itemize}
+\end{enumerate}
+\subsubsection{Korrektkeit}
+v sendet CTS $\Leftrightarrow$ uv ist eine PDT-Kante
+
+\section{Vorlesung n-1}
+\sieheBild{Bilder/52.png}{0.4}{bild52}{Bild 52}
+$\forall uv \in UDG$ \\
+$uv \in PDT \Leftrightarrow \forall uv \in C(u,v)$\\
+\sieheBild{Bilder/53.png}{0.4}{bild53}{Bild 53}
+
+\subsection{Alternative Algorithmenform zur reaktiven KOnstruktion von lokaler Sicht auf planaren Graphen}
+
+A) Selection-Phase
+\begin{enumerate}
+	\item Start \\
+	\sieheBild{Bilder/54.png}{0.4}{bild54}{Bild 54}
+	\begin{itemize}
+		\item Sende RTS per Braodcast mit eigeneer Position an alle Nachbarn
+		\item setze Timer t(u) = $t_max$
+	\end{itemize}
+	\item bei RTS-Empfang\\
+	$u \overset{RTS}{\rightarrow} v$\\
+	\begin{itemize}
+		\item setze timer t(v) = $\frac{\doubleAbs{uv}}{R} * t_max$ [bzw.  vereinfacht t(v) = $\doubleAbs{uv}$ wenn UDG-Radius R = 1]
+	\end{itemize}
+		
+	\item bei Ablauf von Timer t(v) sendet v ein CTS
+	\item Wenn v ein CTS von w empfängt und $w \in C(u,v)$ d.h. v ist kein GG-Nachbar von u), dann lösche Timer t(v) \\
+	\sieheBild{Bilder/55.png}{0.4}{bild55}{Bild 55}
+	
+	ISt der Algorithmus an dieser Stelle fertig?
+	\\
+	\sieheBild{Bilder/56.png}{0.4}{bild56}{Bild 56}
+	\begin{itemize}
+		\item Timeouts werden in der Reihenfolge $w_1,w_2,w_3,u$ gesetzt.
+		\item $w_1$ unterdrückt $w_2$
+		\item damit sendet $w_3$ ein CTS
+		\item Somit enthält das Ergebnis zwar alle GG-Kanten aber möglicherweise noch weitere Kanten (hier: $uw_1 \in GG$ aber auch $uw_3 \not\in GG$)
+	\end{itemize}
+	\item Wenn v ein CTS von w empfängt und Timer von v schon gelöscht, dann: \\
+	Falls $w \in C(u,v)$ \\
+	S(v) = S(v) $\cup \{w\}$\\
+	\sieheBild{Bilder/57.png}{0.4}{bild57}{Bild 57}
+\end{enumerate}
+B) Protest-Phase: nach Ablauf der Selection-Phase (d.h. nach $t_max$) statt
+\begin{enumerate}
+	\item Start: Setze Timer t(v) = $\frac{\doubleAbs{uv}}{R} * t_max$ (d.h. die am nächsten liegenden Knoten protestieren zuerst)
+	\item Bei Ablauf von Timer t(v) falls S(v) $\neq \emptyset$\\
+	Sende Protestnachricht an Knoten u
+	\item Startknoten u empfängt Protest-Nachricht von v:
+	\\
+	u entfernt alle bisherigen Kanten uw mit $v \in C(u,w)$\\
+	\sieheBild{Bilder/58.png}{0.4}{bild58}{Bild 58}
+	\item (zur möglichen Reduktion der Anzahl Protestnachrichten) Knoten v empfängt Protest von w.
+	\\
+	v entfernt alle x aus S(v) mit $w \in C(u,x)$\\
+	\sieheBild{Bilder/59.png}{0.4}{bild59}{Bild 59}
+\end{enumerate}
+
+\subsection{formale Charakterisierung der behandelten reaktiven Verfahren im Sinne von Nachrichtenkomplexität}
+Für RPDT gilt: \\
+\sieheBild{Bilder/60.png}{0.4}{bild60}{Bild 60}
+1 Nachricht für das RTS (beachte: Broadcast Medium)\\
+\sieheBild{Bilder/61.png}{0.4}{bild61}{Bild 61}
+genau eine Nachricht für jeden PDT Nachbarn\\
+Nachrichtengröße: 
+\begin{itemize}
+	\item eigene Adresse: O(log n) Bits bei n Knoten
+	\item eigene Position: O(1) Bits
+\end{itemize}
+Betrachte PDT-Konstruktion als Topologieabbildung\\
+$\tau : UDG \rightarrow PDT$
+\\
+Sei $G \in UDG$. Zur konstruktion der lokalen Sicht. $\tau (G)[v]$ von v auf $\tau (G)$ werden $ (1 +  | \tau (G)[v] |) * O(log(n) + 1) = O(|\tau(G)[v]| * log(n)$ \\
+Dabei ist $| \tau (G)[v] |$  die Anzahl der Nachbarn von v in $\tau (G)$\\
+$ 1 +  | \tau (G)[v] | $ Anzahl der Nachrichten\\
+$O(log(n) + 1) $ Grße der Nachricht\\
+
+\subsubsection{Verallgemeinerung auf}
+\begin{itemize}
+	\item Verfahren die auch virtuelle Topologien erzeugen
+	\\
+	\sieheBild{Bilder/62.png}{0.4}{bild62}{Bild 62}
+	\\
+	virtueller Knoten v im virtuellen Graph\\
+	u ist Proxy im realen Netzgraph, der die Sicht auf v konstruiert\\
+	\item Verfahren, die mehr als die Ein-Hop-Nachbarschaft der konstruierten Topologie benötigen; d.h. K-Hop-Nachbarschaft für ein festes k.
+\end{itemize}
+
+\subsection{Definition}
+lokale Topologiekontrolle: $\tau: \mathcal{C} \rightarrow \mathcal{D}$ ist $O_k$ reaktiv wenn stets gilt: Sei $G \in \mathcal{C}$ mit n Knoten $\forall v \in \tau(G) \exists u \in G$, sodass $\tau(G)[v]$ wie folgt konstruierbar ist
+\begin{itemize}
+	\item Kein Knoten aus G kennt zu Beginn seine Nachbarn
+	\item Knoten u sendet zu Beginn einen Broadcast
+	\item die Nachrichtenkomplexität des Verfahrens ist $O(|\tau(G) [v,k]| * log(n))$, mit $|\tau(G)[v,k]|$ ist die Anzahl der Knoten in $\tau(G)[v,k]$
+\end{itemize}
+
+\subsubsection{Ist BFP-GG (Verfahren von eben) O-reaktiv?}
+\sieheBild{Bilder/63.png}{0.4}{bild63}{Bild 63}
+Es ist: $\doubleAbs{vw_1} < \doubleAbs{vw_2} < \doubleAbs{vw_3}$ und $C(v,w_1) = \emptyset, w_1 \in C(w,w_2), w_2 \in C(v,w_3)$\\
+Betrachte $vw_3$ wie eben die Kante $vw_1$ und führe dieselbe Konstruktion durch.\\
+Setze beliebig fort: Man erhält: \\
+\sieheBild{Bilder/64.png}{0.4}{bild64}{Bild 64}
+mit $\doubleAbs{vw_i} < \doubleAbs{vw_{i+1}} und w_i \in C(v, w_{i+1})$
+Damit ist $GG(\{v, w_1, ..., w_k\})[v] = \{vw_1\}$\\
+Aber Anzahl Nachrichten: 
+\begin{itemize}
+	\item Broadcast
+	\item Nachricht $w_1 \rightarrow w$ schaltet $w_2$ ab. Es folgt:
+	\item Nachricht $w_3 \rightarrow v$ schaltet $w_4$ ab. 
+	\item usw. 
+\end{itemize}
+Also ist die ANzahl der Nachrichten O(K) und nicht O(1), was hier wegen der einzigen GG-Kante aber für O-Reaktivität notwendig wäre. \\
+Dennoch gilt: BFP-GG ist bzgl. Nachritenkomplexität besser als erst alle Nachbarn zu ermitteln.\\
+Beispiel: \\
+\sieheBild{Bilder/65.png}{0.4}{bild65}{Bild 65}
+\\
+Plaziere für beliebiges K Knoten in diese Halbebene.
+\\
+Es ist $v \in C(u,v_i)$ und $\doubleAbs{v_i u} > \doubleAbs{uv}$
+Somit antwortet v auf RTS von u zuerst. Alle anderen $v_i$ schalten Timer ab. Keine Protestnachrichten werden verschickt.
+Die Anzahl der Nachrichten ist damit 2 anstatt  die O(k) vielen Nachrichten, die erst mal erforderlich sind, um alle K-Hop-Nachbarn zu bestimmen.
+
+
+\end{document}
+
+
