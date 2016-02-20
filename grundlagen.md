@@ -18,13 +18,13 @@ Weiterhin schränkt die begrenzte **Batteriekapazität** die mögliche Sendeleis
 Auf Grund der räumlichen Ausbreitung des Signals nimmt dessen Stärke exponentiell ab. Der Zusammenhang zwischen Sendeleistung und Empfangsleistung ist:
 
 $$
-S_{RX} = a\frac{P_{TX}}{d^\alpha}
+S_{RX} = a \cdot \frac{P_{TX}}{d^\alpha}
 $$
 
 Wobei $S_{RX}$ die Empfangsleistung, $a$ ein Übertragungsfaktor, $P_{TX}$ die Übertragungsleistung, $d$ die Distanz und $\alpha$ die **Path-Loss Exponent** ist (*Nicht sicher ob korrekt*). Dieser **Pfadverlust** kann umgeformt in Dezibel ausgedrückt werden durch:
 
 $$
-PL(d) = 10 \alpha log_{10}(d) + X_\delta
+PL(d) = 10 \cdot \alpha \cdot log_{10}(d) + X_\delta
 $$
 
 Wobei $X_\delta$ eine gaußsche Zufalls-Variable mit Varianz $\delta$ ist. Alternativ kann die Verteilung der Zufallsvariable durch zwei Fading-Modelle beschrieben werden:
@@ -35,7 +35,7 @@ Wobei $X_\delta$ eine gaußsche Zufalls-Variable mit Varianz $\delta$ ist. Alter
 Vereinfacht kann die benötigte Leistung für eine Übertragung $f(d)$ angegeben werden durch:
 
 $$
-f(d) = a d^\alpha + b
+f(d) = a \cdot d^\alpha + b
 $$
 
 Mit Distanz $d$, Übertragungsfaktor $a$, Path-Loss Exponent $\alpha$ und additiver Konstante $b$ (*???*).
