@@ -36,13 +36,3 @@ Die Gewichtung ist die euklidische Distanz zwischen zwei Punkten $p = (p_1 ... p
 ## Topologischer Graph
 
 Laut Dausi ein gewichteter Graph, bei dem die Kantengewichtfunktion aber nicht nur die Distanz zwischen den Punkten ist.
-
-## UDG (Uni-Disk Graph)
-
-Ein UDG hat einen Radius $r$. Mit diesem Radius zieht man einen Kreis um eine Knotenmenge $V$. $UDG(V)$ macht dann eine Kante zwischen allen Punkten, die in einander Kreisen liegen.
-
-## QUDG (Quasi-Unit-Disk Graph)
-
-In der Realität kann man nicht einfach um z.B. einen WLAN-Router einen Kreis ziehen und sagen, dass alles im Kreis sich zum Router verbinden kann. Stattdessen nimmt man zwei Radien $r_{min}$ und $r_{max}$ ($r_{min} \leq r_{max}$) und zieht damit zwei Kreise um eine Knotenmenge $V$. Der innere Kreis garantiert eine Verbindung, dahinter nur vielleicht und hinter dem äußeren Kreis gibt es keine Verbindung mehr.
-
-Besonders interessant ist wenn $\frac{r_{max}}{r_{min}} \leq \sqrt{2}$, aber warum das so ist weiß keiner.
