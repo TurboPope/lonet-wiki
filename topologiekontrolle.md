@@ -148,16 +148,16 @@ Das komplette **Voronoi-Diagramm** $VD(S)$ erhält man, wenn man die Regionen al
 
 Kanten, die mehr als eine Region delimitieren, sind die **Voronoi-Kanten**. Sie können Geraden, Halbgeraden oder Strecken sein.
 
-Die Endpunkte der Kanten sind die **Voronoi-Knoten**. Sie haben mindestens 3 ausgehende Kanten. Wenn sie genau 3 Kanten haben, sind sie **nicht-degeneriert** und wenn sie mehr als 3 Kanten haben, sind sie **degeneriert**. Wenn ein Voronai-Diagramm einen degenerierten Knoten hat, dann ist das ganze Diagramm degeneriert.
+Die Endpunkte der Kanten sind die **Voronoi-Knoten**. Sie haben mindestens 3 ausgehende Kanten. Wenn sie genau 3 Kanten haben, sind sie **nicht-degeneriert** und wenn sie mehr als 3 Kanten haben, sind sie **degeneriert**. Wenn ein Voronoi-Diagramm einen degenerierten Knoten hat, dann ist das ganze Diagramm degeneriert.
 
 Das ganze kann man mit [diesem Simulator](http://alexbeutel.com/webgl/voronoi.html) ausprobieren. Beispielergebnis (farbige Gebiete sind die Voronoi-Regionen, deren Grenzen die Voronoi-Kanten und die Enden der Kanten die Voronoi-Knoten):
 
-![Voronoi-Diagramm und degenerierter Voronai-Krüppel](img/voro-diagrams.png)
+![Voronai-Diagramme: normal, degenerierter Krüppel, Geraden](img/voro-diagrams.png)
 
 
 # Delaunay-Triangulierung
 
-Drei mögliche Definitionen:
+Drei mögliche Definitionen für $Del(S)$:
 
 1. Verbinden aller Punkte in $S$, deren Voronoi-Region eine gemeinsame Kante haben.
 
@@ -166,3 +166,11 @@ Drei mögliche Definitionen:
 3. Verbinde $u, v \in S$, wenn es einen Kreis gibt, der die beiden Punkte tangiert, aber keine anderen Punkte beinhaltet.
 
 ![Delaunay-Definitionen](img/delaunay.png)
+
+Die drei Definitionen sind in gewissen Fällen nicht äquivalent. Darum macht man zwei vereinfachende Annahmen über $S$, womit diese Fälle ausgeschlossen werden:
+
+1. **Nicht-Cozirkularität**: es gibt keine vier Punkte, die auf einem Kreis liegen $\Leftrightarrow$ kein Voronai-Knoten ist degeneriert.
+
+2. **Nicht-Colinearität**: es gibt keine drei Punkte, die auf einer Geraden liegen $\Leftrightarrow$ keine Voronai-Kante ist eine Gerade.
+
+Delauny-Triangulierung ist planar und keine lokale Topologie.
