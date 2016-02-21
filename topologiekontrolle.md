@@ -152,9 +152,17 @@ Die Endpunkte der Kanten sind die **Voronoi-Knoten**. Sie haben mindestens 3 aus
 
 Das ganze kann man mit [diesem Simulator](http://alexbeutel.com/webgl/voronoi.html) ausprobieren. Beispielergebnis (farbige Gebiete sind die Voronoi-Regionen, deren Grenzen die Voronoi-Kanten und die Enden der Kanten die Voronoi-Knoten):
 
-![Voronoi-Diagramm](img/voro-diagram.png)
-
-![Degenerierter Voronoi-Krüppel](img/voro-degenerate.png)
+![Voronoi-Diagramm und degenerierter Voronai-Krüppel](img/voro-diagrams.png)
 
 
 # Delaunay-Triangulierung
+
+Drei mögliche Definitionen:
+
+1. Verbinden aller Punkte in $S$, deren Voronoi-Region eine gemeinsame Kante haben.
+
+2. Verbinde $u, v, w \in S$, wenn ihr Kreis keine weiteren Punkte enthält.
+
+3. Verbinde $u, v \in S$, wenn es einen Kreis gibt, der die beiden Punkte tangiert, aber keine anderen Punkte beinhaltet.
+
+![Delaunay-Definitionen](img/delaunay.png)
