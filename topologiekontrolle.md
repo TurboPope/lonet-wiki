@@ -1,6 +1,6 @@
 Eine **Topologiekontrolle** ist eine Abbildung $\tau: C \rightarrow D$ eines Graphen $C$ auf einen Graphen $D$. $D$ ist ein Subgraph von $C$. Eine Topologiekontrolle kann Kanten und Knoten entfernen.
 
-Die **k-lokale Sicht** $G[v, k]$ eines Knotens $v$ ist ein Subgraph von $G$, bestehend aus $v$ und seinen $k$-hop Nachbarn den Pfaden zu diesen. Vereinfachung: $G[v]$ ist die 1-lokale-Sicht von $v$.
+Die **k-lokale Sicht** $G[v, k]$ eines Knotens $v$ ist ein Subgraph von $G$, bestehend aus $v$, seinen $k$-hop Nachbarn und den Pfaden zu diesen. Vereinfachung: $G[v]$ ist die 1-lokale-Sicht von $v$.
 
 Eine **k-lokale Topologiekontrolle** ist eine Topologiekontrolle, die nur die k-lokale Sicht eines Knotens betrachtet, um Entscheidungen zu treffen.
 
