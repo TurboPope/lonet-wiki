@@ -121,3 +121,40 @@ $$
 $$
 
 (*??? Keine Ahnung was das soll, Beweis ausgelassen*)
+
+
+# GG (Gabriel-Graph)
+
+Man malt einen Kreis um jedes Knotenpaar, sodass der Mittelpunkt des Kreises genau zwischen den beiden Punkten liegt. Der $GG(V)$ macht eine Kante zwischen alle Knoten, bei denen kein anderer Knoten im Knotenpaarkreis liegt.
+
+Der **Unit-Gabriel-Graph** $UGG(V) = GG(V) \cap UDG(V)$ ist eine lokale Konstruktion.
+
+
+# Voronoi-Diagramm
+
+Gegeben sein eine Punktemenge $S$. Die **Voronoi-Region** um einen Punkt $u \in S$ wird konstruiert, indem man die Halbebene zu jedem anderen Punkt in $S$ zeichnet. Alles was auf der Halbebene von $u$ liegt, ist Teil der Voronoi-Region.
+
+Formal:
+
+$$
+VR_S(u) = \displaystyle{\bigcap_{v \in S \setminus \lbrace u \rbrace}} H(u, v)
+$$
+
+Beispiel:
+
+![Voronoi-Region mit rustikaler Holzmaserung](img/voro-region.png)
+
+Das komplette **Voronoi-Diagramm** $VD(S)$ erhält man, wenn man die Regionen aller Punkte vereinigt: $VD(S) = \lbrace VR_S(v) ~|~ v \in S \rbrace$
+
+Kanten, die mehr als eine Region delimitieren, sind die **Voronoi-Kanten**. Sie können Geraden, Halbgeraden oder Strecken sein.
+
+Die Endpunkte der Kanten sind die **Voronoi-Knoten**. Sie haben mindestens 3 ausgehende Kanten. Wenn sie genau 3 Kanten haben, sind sie **nicht-degeneriert** und wenn sie mehr als 3 Kanten haben, sind sie **degeneriert**. Wenn ein Voronai-Diagramm einen degenerierten Knoten hat, dann ist das ganze Diagramm degeneriert.
+
+Das ganze kann man mit [diesem Simulator](http://alexbeutel.com/webgl/voronoi.html) ausprobieren. Beispielergebnis (farbige Gebiete sind die Voronoi-Regionen, deren Grenzen die Voronoi-Kanten und die Enden der Kanten die Voronoi-Knoten):
+
+![Voronoi-Diagramm](img/voro-diagram.png)
+
+![Degenerierter Voronoi-Krüppel](img/voro-degenerate.png)
+
+
+# Delaunay-Triangulierung
