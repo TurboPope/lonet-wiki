@@ -30,7 +30,7 @@ Des Weiteren wird der **Winkel** zwischen zwei Geraden $uv$ und $vw$ wie folgt n
 
 # Spanner
 
-Man nehme zwei beliebige Knoten $p, q \in G$. Dann setzt man den tatsächlich kürzesten Pfad zwischen den beiden Knoten mit der Pfadlänge der Knoten aus $G$. Wenn man dieses Verhältnis auf einen Stretch-Faktor („Umständlichkeit”) $c$ beschränken kann ($O, \Theta, \Omega$), dann ist $G$ ein $c$-Spanner.
+Man nehme zwei beliebige Knoten $p, q \in G$. Dann setzt man den tatsächlich kürzesten Pfad zwischen den beiden Knoten mit der Pfadlänge der Knoten aus $G$ ins Verhältnis. Wenn man dieses Verhältnis auf einen Stretch-Faktor („Umständlichkeit”) $c$ beschränken kann ($O, \Theta, \Omega$), dann ist $G$ ein $c$-Spanner.
 
 Man kann auch die Pfade in zwei Graphen ins Verhältnis setzen und so Spanner über Umwege definieren. Spanner sind nützlich, weil man damit trotz nur eingeschränktem Wissen sich dem kürzesten Pfad annähren kann.
 
