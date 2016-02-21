@@ -64,5 +64,7 @@ Analog dazu ist eine lokale Topologiekontrolle **$\Omega_k$-reaktiv**, wenn zur 
 | (GDBF)      | GG        | Nein          | Ja                 |
 | BFP-GG      | GG        | Nein          | Ja                 |
 | (BFP-RNG)   | RNG       | Ja            | Nein               |
-| (BFP-CNG)   | CNG       | Ja            | Nein               |
+| (BFP-CNG)   | (CNG)     | Ja            | Nein               |
 | RPDT        | PDT       | Ja            | Nein               |
+
+*Eingeklammertes wurde nicht behandelt.*
