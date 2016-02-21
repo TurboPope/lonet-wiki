@@ -1,11 +1,11 @@
 Eine **Topologiekontrolle** ist eine Abbildung $\tau: C \rightarrow D$ eines Graphen $C$ auf einen Graphen $D$. $D$ ist ein Subgraph von $C$. Eine Topologiekontrolle kann Kanten und Knoten entfernen.
 
-Die **k-lokale Sicht** $G[v, k]$ eines Knotens $v$ ist ein Subgraph von $G$, bestehend aus $v$ und seinen $k$-hop Nachbarn den Pfaden zu diesen. Vereinfachung: $G[v]$ ist die 1-lokale-Sicht von $v$.
+Die **k-lokale Sicht** $G[v, k]$ eines Knotens $v$ ist ein Subgraph von $G$, bestehend aus $v$, seinen $k$-hop Nachbarn und den Pfaden zu diesen. Vereinfachung: $G[v]$ ist die 1-lokale-Sicht von $v$.
 
 Eine **k-lokale Topologiekontrolle** ist eine Topologiekontrolle, die nur die k-lokale Sicht eines Knotens betrachtet, um Entscheidungen zu treffen.
 
 
-# UDG (Uni-Disk Graph)
+# UDG (Unit-Disk Graph)
 
 Ein UDG hat einen Radius $r$. Mit diesem Radius zieht man einen Kreis um eine Knotenmenge $V$. $UDG(V)$ macht dann eine Kante zwischen allen Punkten, die in einander Kreisen liegen.
 
@@ -114,7 +114,7 @@ $$
 Alternativ: Sei Radius $r = \|uv\|$. Sei $c_u$ die Menge der Punkte im Kreis um $u$ mit Radius $r$: $c_u = circleSet(u, r)$ und $c_v$ das Gleiche für $v$. Dann ist
 
 $$
-uv \in RNG(V) \Leftrightarrow \exists!{w \in V}: w \in c_u \cap c_v
+uv \in RNG(V) \Leftrightarrow \nexists{w \in V}: w \in c_u \cap c_v
 $$
 
 Das heißt: Die Schnittmenge (**Lune**) der Kreise um $u$ und $v$ mit mit deren Abstand als Radius enthält keine weiteren Knoten.
@@ -180,7 +180,7 @@ Drei mögliche Definitionen für $Del(S)$:
 
 2. Verbinde $u, v, w \in S$, wenn ihr Kreis keine weiteren Punkte enthält.
 
-3. Verbinde $u, v \in S$, wenn es einen Kreis gibt, der die beiden Punkte tangiert, aber keine anderen Punkte beinhaltet.
+3. Verbinde $u, v \in S$, wenn es einen Kreis gibt, der die beiden Punkte tangiert, aber keine anderen Punkte beinhaltet. (*Hinweis: Der Kreis muss nicht minimal sein, das wäre dann GG.*)
 
 ![Delaunay-Definitionen](img/delaunay.png)
 
@@ -236,6 +236,8 @@ $RDG(V)$ für $UDG(V)$ (*TODO humane Beschreibung*):
 $$
 uv \in RDG(V) \Leftrightarrow uv \in UDG(V) \wedge \forall w \in N(u) \cap N(v): uv \in Del(N(w))
 $$
+
+Eine Kante $uv$ zwischen $u$ und $v$ aus $V$ ist Teil des RDG über $V$ genau dann, wenn $uv$ im UDG über $V$ ist und $uv$ in der Delauney-Triangulierung der Nachbarn von $w$ ist, für jeden Punkt $w$ in der gemeinsamen Nachbarschaft von $u$ und $v$.
 
 Es gilt $UDel(V) \subseteq RDG(V)$.
 
