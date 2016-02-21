@@ -106,6 +106,8 @@ $$
 
 Das heißt: Die Schnittmenge (**Lune**) der Kreise um $u$ und $v$ mit mit deren Abstand als Radius enthält keine weiteren Knoten.
 
+![RNG -- Im Blitzgewitter dürfen keine Punkte sein.](img/rng.png)
+
 Der **Unit- Relativer Nachbarschaftsgraph (URNG)** ist die Schnittmenge aus RNG und UDG:
 
 $$
@@ -126,6 +128,8 @@ $$
 # GG (Gabriel-Graph)
 
 Man malt einen Kreis um jedes Knotenpaar, sodass der Mittelpunkt des Kreises genau zwischen den beiden Punkten liegt. Der $GG(V)$ macht eine Kante zwischen alle Knoten, bei denen kein anderer Knoten im Knotenpaarkreis liegt.
+
+![GG -- Im Bienenbereich dürfen keine Punkte sein](img/gg.png)
 
 Der **Unit-Gabriel-Graph** $UGG(V) = GG(V) \cap UDG(V)$ ist eine lokale Konstruktion.
 
