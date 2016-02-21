@@ -5,7 +5,19 @@ Die **k-lokale Sicht** $G[v, k]$ eines Knotens $v$ ist ein Subgraph von $G$, bes
 Eine **k-lokale Topologiekontrolle** ist eine Topologiekontrolle, die nur die k-lokale Sicht eines Knotens betrachtet, um Entscheidungen zu treffen.
 
 
-## 2D-Geometrie
+# UDG (Uni-Disk Graph)
+
+Ein UDG hat einen Radius $r$. Mit diesem Radius zieht man einen Kreis um eine Knotenmenge $V$. $UDG(V)$ macht dann eine Kante zwischen allen Punkten, die in einander Kreisen liegen.
+
+
+# QUDG (Quasi-Unit-Disk Graph)
+
+In der Realität kann man nicht einfach um z.B. einen WLAN-Router einen Kreis ziehen und sagen, dass alles im Kreis sich zum Router verbinden kann. Stattdessen nimmt man zwei Radien $r_{min}$ und $r_{max}$ ($r_{min} \leq r_{max}$) und zieht damit zwei Kreise um eine Knotenmenge $V$. Der innere Kreis garantiert eine Verbindung, dahinter nur vielleicht und hinter dem äußeren Kreis gibt es keine Verbindung mehr.
+
+Besonders interessant ist wenn $\frac{r_{max}}{r_{min}} \leq \sqrt{2}$, aber warum das so ist weiß keiner.
+
+
+# 2D-Geometrie
 
 Der **Bisektor** zweier Punkte $u$ und $v$ ist die Menge aller Punkte, die zu $u$ und $v$ den gleichen Abstand haben: $B(u,v) = bisektor(u,v) = \{x : \|xu\| = \|xv\|\}$
 
@@ -16,7 +28,7 @@ Der **Kreis** um einen Punkt $u$ mit dem Radius $r$ ist die Menge aller Punkte, 
 Des Weiteren wird der **Winkel** zwischen zwei Geraden $uv$ und $vw$ wie folgt notiert: $\measuredangle uvw = angle(u, v, w)$
 
 
-## Spanner
+# Spanner
 
 In einem topologischen, gewichteten Graphen $G$ ist der **kürzeste Pfad** $p_{min}$ zwischen zwei Knoten $u$ und $v$ der Pfad, für den die Pfadlänge minimal ist. Er wird wie folgt notiert: $p_{min} = \Gamma_G(u, v)$
 
@@ -41,14 +53,14 @@ $$
 $$
 
 
-## Planare Graphen
+# Planare Graphen
 
 *Graphentheoretisch*: Graph $G$ ist planar, wenn $G$ auf die Ebene gezeichnet werden kann, sodass sich keine Kanten schneiden.
 
 *Definition hier*: Graph $G$ ist als Zeichnung auf der Ebene gegeben. Gesucht ist ein Teilgraph $H$, der keine schneidenden Kanten enthält. Dieser Graph $H$ wird dann als planar bezeichnet.
 
 
-## EMST (Euclidean Minimal Spanning Tree)
+# EMST (Euclidean Minimal Spanning Tree)
 
 Das euklidische Gewicht eines euklidischen Graphen ist
 
@@ -61,9 +73,9 @@ Der **EMST** über eine Punktemenge $V$ ist der zusammenhängende Graph, für de
 Der EMST über $V$ lässt sich über den Algorithmus von Kruskal herstellen: Zeichne in jedem Schritt die kurzmöglichste Kante, die keinen Zyklus erzeugen würde, bis der Graph zusammenhängend ist.
 
 
-## LMST (Local EMST)
+# LMST (Local EMST)
 
-Der **LMST** ist eine Graphenstruktur, die "nahme am" EMST ist. Gegeben sei ein Graph $G$ mit zwei Knoten $u$ und $v$ und der Kante $uv$. Wendet man LMST als Topologiekontrolle an, bleibt $uv$ im Graphen, wenn:
+Der **LMST** ist eine Graphenstruktur, die „nahe am“ EMST ist. Gegeben sei ein Graph $G$ mit zwei Knoten $u$ und $v$ und der Kante $uv$. Wendet man LMST als Topologiekontrolle an, bleibt $uv$ im Graphen, wenn:
 
 $uv \in LMST(G) \Leftrightarrow uv \in EMST(N(u)) \land uv \in EMST(N(v))$
 
@@ -75,10 +87,10 @@ Der LMST ist eine 2-lokale Topologiekontrolle (*Beweis ausgelassen*).
 
 Ist $UDG(V)$ verbunden, so ist $EMST(V) \subseteq LMST(V)$ (*Beweis ausgelassen*).
 
-Der LMST hat maximalen Grad 6 (*???, Beweis in Übung*).
+Der LMST hat maximalen Grad 6. [Wikipedia](https://de.wikipedia.org/wiki/Grad_(Graphentheorie)).
 
 
-## RNG (Relativer Nachbarschaftsgraph)
+# RNG (Relativer Nachbarschaftsgraph)
 
 $V$ sei eine Menge von Punkten, die zu einem Graphen verbunden werden sollen.
 

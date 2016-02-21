@@ -32,3 +32,7 @@ Bei einem gewichteten Graphen kann man die **Pfadlänge** eines Pfades berechnen
 Ein Graph im euklidischen Raum (normale Geometrie).
 
 Die Gewichtung ist die euklidische Distanz zwischen zwei Punkten $p = (p_1 ... p_n)$ und $q = (q_1 ... q_n)$ im $n$-dimensionalen Raum: $\|pq\| = \sqrt{\displaystyle{\sum_{i = 1}^n}} (p_i - q_i)^2$
+
+## Topologischer Graph
+
+Laut Dausi ein gewichteter Graph, bei dem die Kantengewichtfunktion aber nicht nur die Distanz zwischen den Punkten ist.
