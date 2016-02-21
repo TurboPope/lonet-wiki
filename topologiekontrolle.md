@@ -233,17 +233,47 @@ $$
 uv \in RDG(V) \Leftrightarrow uv \in UDG(V) \wedge \forall w \in N(u) \cap N(v): uv \in Del(N(w))
 $$
 
+Es gilt $UDel(V) \subseteq RDG(V)$.
+
 
 # PDT (Partielle Delaunay-Triangulierung)
 
-*TODO, Definition wissen*
+Wir nehmen uns den $UDG(S)$ mit Radius $r$. Die $PLT(S)$ verbindet alle Punkte $u, v \in S$ für die gilt:
+
+1. $\|uv\| < r$
+
+2. Und eins der folgenden Optionen:
+
+    - $uv \in GG(S) \cap UDG(S)$
+
+    - $C(u, v, w) \cap N(u) \setminus \lbrace u, v, w \rbrace = \emptyset$ und $sin(\alpha) \geq \frac{\|uv\|}{r}$, wobei $w \in S \setminus \lbrace u, v \rbrace$ der winkelmaximierende Knoten
+
+$PDL$ ist ein UDG-Spanner und ein UDel-Spanner. Er ist identisch mit dem $PuDel$.
+
+![PDT visualisiert](img/pdt.png)
 
 
 # PuDel (Partielle ungerichtete Delauney-Triangulierung)
 
 *TODO, beim Beweis verstehen wie „somit: PuDel ist $blabla - UDG-Spanner$” funktioniert, Gleichheit PuDel und PDT wird er nicht so genau fragen*
 
+$PuDel$ und $PDT$ sind gleich, wird aber in der Klausur nicht so genau gefragt.
 
-# Das ganze weitere Graphengedöns
 
-*TODO, nicht so genau, auf die Folien gucken, nur höchstens Ideen von Chu-Lin/Edmunds-Algorithmus, Backbone: was ist Dominating Set, Grundidee des verteilten Dominating Set (lightweight construction), Verbesserung dafür, Erweiterungen schon noch drauf haben, aber den Rest nicht mehr*
+# Das ganze weitere Graphengedöns...
+
+...steht in den Folien. Wichtig sind:
+
+* Ideen des Chu-Lin/Edmunds-Algorithmus
+
+* Backbone
+
+    * Dominating Set
+
+    * Grundidee des Verhaltens (Lightweight Construction)
+
+    * Verbesserungen
+
+    * Erweiterungen „schon noch drauf haben”
+
+Den Rest nicht mehr.
