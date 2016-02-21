@@ -32,7 +32,7 @@ Um die Energienutzung noch weiter zu balancieren kann der Nächste Hop auch (ein
 *TODO: Vorteile, Nachteile, Problem mit Namen nennen*
 
 
-## Beacon-Less-Routing
+# Beacon-Less-Routing
 
 Bisher gingen wir davon aus, dass jeder Knoten seine Nachbarn kennt. Um dies zu vermeiden kann **BLR** benutzt werden:
 
@@ -43,21 +43,84 @@ Bisher gingen wir davon aus, dass jeder Knoten seine Nachbarn kennt. Um dies zu 
 5. Je besser die Metrik, desto früher antworten die Knoten
 
 
-## Der Fehler von Greedy Routing
+# Der Fehler von Greedy Routing
 
-Ein "dummes" Greedy-Routing zieht keine Rückwärts-Hops in Betracht, obwohl diese zu einem insgesamt besseren Pfad führen könnten. Des Weiteren kann es in "Sackgassen" laufen und stecken bleiben.
+Ein "dummes" Greedy-Routing zieht keine Rückwärts-Hops in Betracht, obwohl diese zu einem insgesamt besseren Pfad führen könnten. Des Weiteren kann es in "Sackgassen" (im folgenden **konkave Knoten**) laufen und stecken bleiben.
 
-*TODO: Beispiel, die zwei Methoden von Recovery von Greedy Routing*
+![Greedy-Routing kommt nicht von 1 zu 6, da es nicht zu 2 springt](/img/greedy-cul-de-sac.png)
+
+Um trotzdem Greedy-Routing so lange wie möglich zu benutzen, kann man im Falle eines solchen Routing-Fehlers eine **Greedy-Recovery** einschalten. Dafür müssen allerdings bereits gemachte Routing-Entscheidungen gespeichert werden, entweder in den Knoten oder in der Nachricht selbst.
+
+## Flooding-Recovery
+
+Konkave Knoten senden die Nachricht an alle Nachbarn. Bekommen sie die selbe Nachricht noch einmal, ignorieren sie sie, um Nachrichtenschleifen zu vermeiden.
+
+![Nachricht von S nach D mit Flooding-Recovery](/img/greedy-flooding.png)
+
+Verbesserung: **Component-Routing**. Der konkave Knoten flooded das vielversprechenste Subset seiner Nachbarn.
+
+## DFS-Based Recovery
+
+Zur Recovery wird eine Tiefensuche (**Depth First Search, DFS**) vom konkaven Knoten gestartet. Die Kotenauswahl kann hierbei wieder auf einer der oben beschriebenen Metriken beruhen.
 
 
 # Face-Routing
 
-*TODO*
+**Face-Routing** unterteilt einen planaren Graphen in **Faces** und besucht dann eine Sequenz von Faces bis zum Ziel. Dazu läuft es die Grenze der Faces mit oder gegen den Uhrzeigersinn entlang (**left/right hand rule**). Der Vorteil von Face-Routing ist, dass es keine Routing-Informationen speichern muss. Es kann als Recovery-Strategie für Greedy-Routing benutzt werden.
+
+![Faces Beispiel](/img/faces.png)
+
+## Greedy-Face-Greedy (GFG)
+
+Es wird eine Gerade vom Start zum Zielknoten gezogen. Diese durchläuft zwangsläufig eine Menge Faces, entlang der dann traverisiert werden soll. Der Algorithmus läuft die Grenze eines Faces entlang, bis sie die Gerade schneidet. Dann wechselt er zum nächsten Face.
+
+![Beispiel Face-Routing: 1. Schritt](/img/face-routing-1.png)
+
+![Beispiel Face-Routing: 2. Schritt](/img/face-routing-2.png)
+
+![Beispiel Face-Routing: 3. Schritt](/img/face-routing-3.png)
+
+## Greedy Other Adaptive Face Routing (GOAFR)
+
+Ähnlich wie GFG, aber hier wird jedes Face erstmal komplett abgelaufen, und dann der Knoten ausgewählt, der am nächsten am Ziel liegt. Von diesem wird dann die Gerade neu gezogen und ab diesem traversiert.
+
+![Beispiel GOAFR: 1. Schritt](/img/goafr-1.png)
+
+![Beispiel GOAFR: 2. Schritt](/img/goafr-2.png)
+
+![Beispiel GOAFR: 3. Schritt](/img/goafr-3.png)
+
+![Beispiel GOAFR: 4. Schritt](/img/goafr-4.png)
 
 
-# Geographischer Multicast
+# Geographical Cluster Based Routing
 
-*TODO, sonstige Formen nicht im Detail*
+Beim **Geographical Cluster Based Routing** wird ein virtuelles Overlay über den Graphen gelegt, um die Knoten zu Clustern/Faces zusammenzufassen. Cluster sind mit einander verbunden, wenn mindestens ein verbundenes Knotenpaar zwischen ihnen gibt. Das Routing folgt dann den Clustern.
+
+![Geographical Cluster Based Routing](/img/gcbr.png)
+
+Soll der **Overlay-Graph** jedoch auf jeden Fall verbunden sein, müssen Kanten zwischen nicht direkt benachbarten Clustern zugelassen werden, was jedoch wieder die Planarität verletzen könnte.
+
+![Verbundenheit und Planarität in Overlay-Graphen](/img/cluster-connectivity.png)
+
+Ein mögliche Lösung ist der **Purged Aggregated Gabriel Graph**:
+
+1. Erstelle Graphen über Knoten mit UDG
+2. Wende GG auf diesen UDG an
+3. Aggregiere Cluster durch Overlay
+
+![Aggregated Gabriel Graph: Schritt 2](/img/aggregated-gabriel-graph-1.png)
+
+![Aggregated Gabriel Graph: Schritt 3](/img/aggregated-gabriel-graph-2.png)
+
+An dieser Stelle kann es jedoch noch irreguläre Schnitte geben:
+
+![Irregulärer Schnitt in Aggregated Gabriel Graph](/img/irregular-intersections.png)
+
+Um diese los zu werden entfernt man im Beispiel oben die Kante $AC$ und fügt eine **implizite kante** $BC$ ein. *Leider wird nirgends erklärt was das soll und warum man das machen kann.*
+
+
+# Localized Multicasting
 
 
 # Reaktive Topologiekontrolle
