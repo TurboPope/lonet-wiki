@@ -110,7 +110,7 @@ $$
 Alternativ: Sei Radius $r = \|uv\|$. Sei $c_u$ die Menge der Punkte im Kreis um $u$ mit Radius $r$: $c_u = circleSet(u, r)$ und $c_v$ das Gleiche für $v$. Dann ist
 
 $$
-uv \in RNG(V) \Leftrightarrow \exists!{w \in V}: w \in c_u \cap c_v
+uv \in RNG(V) \Leftrightarrow \nexists{w \in V}: w \in c_u \cap c_v
 $$
 
 Das heißt: Die Schnittmenge (**Lune**) der Kreise um $u$ und $v$ mit mit deren Abstand als Radius enthält keine weiteren Knoten.
