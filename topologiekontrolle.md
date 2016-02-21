@@ -17,7 +17,7 @@ In der Realität kann man nicht einfach um z.B. einen WLAN-Router einen Kreis zi
 Besonders interessant ist wenn $\frac{r_{max}}{r_{min}} \leq \sqrt{2}$, aber warum das so ist weiß keiner.
 
 
-## 2D-Geometrie
+# 2D-Geometrie
 
 Der **Bisektor** zweier Punkte $u$ und $v$ ist die Menge aller Punkte, die zu $u$ und $v$ den gleichen Abstand haben: $B(u,v) = bisektor(u,v) = \{x : \|xu\| = \|xv\|\}$
 
@@ -28,7 +28,7 @@ Der **Kreis** um einen Punkt $u$ mit dem Radius $r$ ist die Menge aller Punkte, 
 Des Weiteren wird der **Winkel** zwischen zwei Geraden $uv$ und $vw$ wie folgt notiert: $\measuredangle uvw = angle(u, v, w)$
 
 
-## Spanner
+# Spanner
 
 In einem topologischen, gewichteten Graphen $G$ ist der **kürzeste Pfad** $p_{min}$ zwischen zwei Knoten $u$ und $v$ der Pfad, für den die Pfadlänge minimal ist. Er wird wie folgt notiert: $p_{min} = \Gamma_G(u, v)$
 
@@ -53,14 +53,14 @@ $$
 $$
 
 
-## Planare Graphen
+# Planare Graphen
 
 *Graphentheoretisch*: Graph $G$ ist planar, wenn $G$ auf die Ebene gezeichnet werden kann, sodass sich keine Kanten schneiden.
 
 *Definition hier*: Graph $G$ ist als Zeichnung auf der Ebene gegeben. Gesucht ist ein Teilgraph $H$, der keine schneidenden Kanten enthält. Dieser Graph $H$ wird dann als planar bezeichnet.
 
 
-## EMST (Euclidean Minimal Spanning Tree)
+# EMST (Euclidean Minimal Spanning Tree)
 
 Das euklidische Gewicht eines euklidischen Graphen ist
 
@@ -73,7 +73,7 @@ Der **EMST** über eine Punktemenge $V$ ist der zusammenhängende Graph, für de
 Der EMST über $V$ lässt sich über den Algorithmus von Kruskal herstellen: Zeichne in jedem Schritt die kurzmöglichste Kante, die keinen Zyklus erzeugen würde, bis der Graph zusammenhängend ist.
 
 
-## LMST (Local EMST)
+# LMST (Local EMST)
 
 Der **LMST** ist eine Graphenstruktur, die „nahe am“ EMST ist. Gegeben sei ein Graph $G$ mit zwei Knoten $u$ und $v$ und der Kante $uv$. Wendet man LMST als Topologiekontrolle an, bleibt $uv$ im Graphen, wenn:
 
@@ -90,7 +90,7 @@ Ist $UDG(V)$ verbunden, so ist $EMST(V) \subseteq LMST(V)$ (*Beweis ausgelassen*
 Der LMST hat maximalen Grad 6. [Wikipedia](https://de.wikipedia.org/wiki/Grad_(Graphentheorie)).
 
 
-## RNG (Relativer Nachbarschaftsgraph)
+# RNG (Relativer Nachbarschaftsgraph)
 
 $V$ sei eine Menge von Punkten, die zu einem Graphen verbunden werden sollen.
 
