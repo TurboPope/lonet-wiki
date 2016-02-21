@@ -52,6 +52,15 @@ $$
 \forall{u, v \in G}: \frac{|\Gamma_H(u,v)|}{|\Gamma_G(u,v)|}\leq c
 $$
 
+Wichtig für die ganzen Teile die folgen: wenn $F \subseteq G \subseteq H$ und $F$ ein $t$-Spanner von $H$, dann ist auch $G$ ein $t$-Spanner. Damit kann man folgende Ungleichung bauen:
+
+$$
+LDel^{(1)}(V) \supseteq PlDel(V) \supseteq LDel^{(2)}(V) \supseteq ... \supseteq LDel^{(k)}(V) \supseteq \underbrace{UDel(V)}_{UDG\textmd{-Spanner}}
+$$
+
+$$
+\underbrace{UDel(V)}_{UDG\textmd{-Spanner}} \subseteq LDel^{(k)}(V) \subseteq ... \subseteq LDel^{(2)}(V) \subseteq PlDel(V) \subseteq LDel^{(1)}(V)
+$$
 
 # Planare Graphen
 
@@ -186,20 +195,29 @@ $UDel = Del \cap UDG$. Keine lokale Topologie, aber wichtiges Vehikel um Spannin
 
 *TODO: Grundidee Keil-Gutwin-Beweis, Kreissortierung über $\Theta$$
 
-
-# DT-Pfade
-
-*TODO*
+$UDel$ ist $UDG$-Spanner.
 
 
-# Dobkin-Beweis
+# DT-Pfade (Delauney-Triangulierungspfade)
 
-*TODO: Trick mit kürzestem Pfad wird evtl. abgefragt*
+TODO: Dobkin Beweis (versteh ich nicht), Trick mit kürzestem Pfad wird evtl. abgefragt*
+
+Ein **direkter DT-Pfad** von $u$ nach $v$ mit $u, v \in S$ schreitet durch die Knoten von benachbarten Voronai-Regionen direkt von $u$ nach $v$. Wenn alle Knoten des Pfades auf einer Seite der Geraden durch $u$ und $v$ liegen, dann ist der Pfad **einseitig**.
+
+Ein einseitiger Pfad hat eine nach oben beschränkte Pfadlänge von $\frac{\pi}{2} \|uv\|$. Er besucht nur Kanten aus $UDG(S)$.
+
+![Einseitiger direkter DT-Pfad, aus dem Dobkin-Beweis-PDF, modifiziert](img/dt.png)
 
 
 # LDel (Lokale Delaunay-Triangulierung)
 
-*TODO, evtl. auch Zusammenhang mit GG, warum ist es ein Spanner (UDel $\subseteq$ LDel, darum ist LDel ein Spanner)*
+Man schränkt $Del$ auf die $k$-Hop-Nachbarn ein. So erhält man $LDel$.
+
+Ein Dreieck mit den Punkten $u, v, w \in S$ ist ein $k$-lokales Dreieck, wenn sie nach $UDG(S)$ verbunden sind und $C(u, v, w)$ keine weiteren Punkte enthält.
+
+$LDel^{(k)}(V)$ besteht aus allen $k$-lokalen Dreiecken und allen Kanten aus $UGG$ (damit der Graph zusammenhängt).
+
+$UDel(S) \subseteq LDel^{(k)}(S) \Rightarrow LDel^{(k)}(S)$ ist ein $UDG$-Spanner. $LDel^{(1)}(V)$ ist nicht unbedingt planar.
 
 
 # PlDel (Planare Delaunay-Triangulierung)
@@ -209,7 +227,11 @@ $UDel = Del \cap UDG$. Keine lokale Topologie, aber wichtiges Vehikel um Spannin
 
 # RDG (Restricted Delaunay Graph)
 
-*TODO*
+$RDG(V)$ für $UDG(V)$ (*TODO humane Beschreibung*):
+
+$$
+uv \in RDG(V) \Leftrightarrow uv \in UDG(V) \wedge \forall w \in N(u) \cap N(v): uv \in Del(N(w))
+$$
 
 
 # PDT (Partielle Delaunay-Triangulierung)
