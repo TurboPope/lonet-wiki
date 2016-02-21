@@ -1,0 +1,1 @@
+*TODO, was ist das, was will man erreichen, Beispiel PDT bauen, aber nicht auswendig, warum PDT nachrichtenoptimal, O-Reaktivität angucken, $O_k$-reaktiv, BFP-GG, $\Omega_k-reaktiv$, Redundanzkoexistenz hinmalen können*

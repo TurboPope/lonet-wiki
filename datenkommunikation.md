@@ -139,8 +139,3 @@ Jeder Knoten bildet mit EMST einen virtuellen **Backbone-Graphen** über sich un
 MFACE benutzt die Kanten des virtuellen Backbone-Graphen als die Geraden, die die Faces schneiden, entlang derer dann zu den Zielknoten traverisiert wird.
 
 ![MFACE Ausgangssituation](img/mface.png)
-
-
-# Reaktive Topologiekontrolle
-
-*TODO, was ist das, was will man erreichen, Beispiel PDT bauen, aber nicht auswendig, warum PDT nachrichtenoptimal, O-Reaktivität angucken, $O_k$-reaktiv, BFP-GG, $\Omega_k-reaktiv$, Redundanzkoexistenz hinmalen können*
