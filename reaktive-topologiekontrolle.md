@@ -25,13 +25,13 @@ Reactive PDT für Knoten $u$:
 1. Sende Request to Send (RTS) mit Position blind an alle Nachbarn (Broadcast)
 2. Setze eigenen Timer auf das Maximum ($t(u) = t_{max}$)
 3. Alle anderen Knoten ($v$) empfangen den Broadcast:
-  1. Initialisiere Menge bekannter Knoten ($S(v) = \emptyset$)
-  2. Speichere Maximalwinkel ($\alpha_{max}(v) = \pi/2$)
-  3. Setze Timer entsprechend des normalisierten Abstands ($t(v) = \frac{\|uv\|}{r}\cdot t_{max}$)
-    * Bei Timerablauf: Sende Clear to Send (CTS) mit Position an alle Nachbarn
-    * Bei fremden CTS (von $z$): Füge $z$ zu $S(v)$ hinzu und prüfe ob $uv$ bezüglich $z$ die PDT-Bedingung verletzt.
-      * Ja: Lösche Timer (wird kein CTS senden)
-      * Nein: Teste ob $\alpha = \measuredangle(u, v, z) \gt \alpha_{max}$. Wenn ja aktualisiere den Maximalwinkel ($\alpha_{max} = \alpha$) und aktualisiere den Timer ($t(v) = \frac{\doubleAbs{uv}}{sin(\alpha)} * \frac{1}{r} * t_{max}$)
+    1. Initialisiere Menge bekannter Knoten ($S(v) = \emptyset$)
+    2. Speichere Maximalwinkel ($\alpha_{max}(v) = \pi/2$)
+    3. Setze Timer entsprechend des normalisierten Abstands ($t(v) = \frac{\|uv\|}{r}\cdot t_{max}$)
+        * Bei Timerablauf: Sende Clear to Send (CTS) mit Position an alle Nachbarn
+        * Bei fremden CTS (von $z$): Füge $z$ zu $S(v)$ hinzu und prüfe ob $uv$ bezüglich $z$ die PDT-Bedingung verletzt.
+            * Ja: Lösche Timer (wird kein CTS senden)
+            * Nein: Teste ob $\alpha = \measuredangle(u, v, z) > \alpha_{max}$. Wenn ja aktualisiere den Maximalwinkel ($\alpha_{max} = \alpha$) und aktualisiere den Timer ($t(v) = \frac{\|uv\|}{sin(\alpha)} * \frac{1}{r} * t_{max}$)
 4. Empfange CTS von Nachbarn bis der Timer abgelaufen ist. Alle Nachbarn die geantwortet haben sind PDT-Nachbarn.
 
 *TLDR:* Bei CTS-Empfang passen die anderen Knoten ihre Timer so geschickt an, dass nur die PDT-Nachbarn ein CTS senden. Der RTS-Knoten kennt nach Ablauf seines Timers alle PDT-Nachbarn.
