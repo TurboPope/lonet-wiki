@@ -1,5 +1,3 @@
-*TODO, was ist das, was will man erreichen, Beispiel PDT bauen, aber nicht auswendig, warum PDT nachrichtenoptimal, O-Reaktivität angucken, $O_k$-reaktiv, BFP-GG, $\Omega_k-reaktiv$, Redundanzkoexistenz hinmalen können*
-
 Verwendet man die PDT um eine Nachricht zu versenden, müssen auf dem Weg der Nachricht durch das Netz viele weitere Nachrichten ausgetauscht werden, um die PDT zu bilden. Besser wäre wenn nur die PDT-Nachbarn antworten (**reagieren**) und damit der PDT-graph direkt konstruiert wäre.
 
 Zunächst eine alternative Definition der PDT:

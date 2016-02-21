@@ -25,3 +25,7 @@ Diese Sachen kommen in den Klausurvorbereitungsfragen vor oder wurden in der fre
 # Reaktive Topologiekontrolle
 
 [[reaktive-topologiekontrolle]]
+
+# Redundanz und Koexistenz
+
+[[redundanz-und-koexistenz]]
