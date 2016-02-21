@@ -1,5 +1,3 @@
-*Redundanzkoexistenz hinmalen können*
-
 **Redundanz** und **Koexistenz** sind Netzwerkeigenschaften, die oft von realen Netzwerken erfüllt werden und auch vom UDG erfüllt werden.
 
 
