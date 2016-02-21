@@ -233,6 +233,8 @@ $$
 uv \in RDG(V) \Leftrightarrow uv \in UDG(V) \wedge \forall w \in N(u) \cap N(v): uv \in Del(N(w))
 $$
 
+Eine Kante $uv$ zwischen $u$ und $v$ aus $V$ ist Teil des RDG über $V$ genau dann, wenn $uv$ im UDG über $V$ ist und $uv$ in der Delauney-Triangulierung der Nachbarn von $w$ ist, für jeden Punkt $w$ in der gemeinsamen Nachbarschaft von $u$ und $v$.
+
 Es gilt $UDel(V) \subseteq RDG(V)$.
 
 
