@@ -8,6 +8,8 @@ Seien $G = (V_G, E_G)$ und $H = (V_H, E_H)$ Graphen.
 
 Falls $V_G \subseteq V_H$ und $E_G \subseteq E_H$, dann ist $G$ ein **Subgraph** von $H$: $G \subseteq H$. Im Umkehrschluss ist $H$ ein **Supergraph** von $G$: $H \supseteq G$
 
+*Klausurrelevant*: wenn $G$ ein Spanner, dann $H$ auch ein Spanner. *TODO: warum? Wird freymütig abgefragt.*
+
 Der **Schnitt** der Graphen ist definiert als: $G \cap H = (V_G \cup V_H, E_G \cup E_H)$.
 
 Ein **Pfad** ist eine Reihe von Knoten, die mit Kanten verbunden sind: $p = (v_1 ... v_n), v_iv_{i+1} \in E$.

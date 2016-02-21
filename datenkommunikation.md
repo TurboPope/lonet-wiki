@@ -2,18 +2,18 @@ Das gezielte versenden von Nachrichten (**Routing**) in einem WSN muss viele Ein
 
 **Errichbarkeit** eines Knotens soll **garantierte Zustellung** gewährleisten. Dazu nehmen wir vereinfachend an, dass jede Nachrichtenübertragung zwischen zwei Knoten erfolgreich ist (**ideal MAC layer**).
 
-## Flooding
+# Flooding
 
 **Flooding** ist das simpelste Routingverfahren. Jeder Knoten sendet die Nachricht an jeden seiner Nachbarn weiter. Dass hier Optimierungspotential besteht ist offensichtlich. Im Allgemeinen wollen wir lieber **single path Strategien**, also Routing-Strategien, bei denen es nur einen einzelnen Pfad vom Start zum Ziel gibt.
 
-## Globale vs. Lokale Routing-Strategien
+# Globale vs. Lokale Routing-Strategien
 
 **Globale Routing-Strategien** benutzen Wissen über den gesamten Graphen. Sie können **proaktiv** oder **reaktiv** sein und finden den kürzesten Pfad. Zustellung, zyklenfreiheit und Pfadqualität sind gewährleistet. Allerdings sind sie sehr aufwendig, wenn sie überhaupt möglich sind.
 
 **Lokale Routing-Strategien** benutzen nur ihre 1- (oder k-)hop Nachbar Informationen und merken sich abgehandelten Traffic nicht. Sie sind weniger aufwändig, skalieren gut und Netzwerk-Änderungen betreffen nur Teilbereiche. Allerdings sind Zustellung, zyklenfreiheit und Pfadqualtät hier etwas schwieriger.
 
 
-## Localized Geographic Greedy Packet Routing
+# Localized Geographic Greedy Packet Routing
 
 Wir gehen davon aus dass jeder Knoten seine Position kennt und dass der Start-Knoten, der die Nachricht versenden möchte, die Position des Ziels kennt (*nicht ganz klar wie*).
 
@@ -29,13 +29,15 @@ Um zu vermeiden, dass durch wiederholte Benutzung eines Pfades die beteiligten K
 
 Um die Energienutzung noch weiter zu balancieren kann der Nächste Hop auch (ein Stück weit) **per Zufall** gewählt werden. Es wird eine gewisse Vorauswahl getroffen um sicherzustellen, dass der Hop dem Ziel auch (etwas) näher kommt, und dann wird per Zufall ein Knoten ausgewählt. Die Zufallsverteilung kann weiterhin durch eine andere Metrik gewichtet werden.
 
+*TODO: Vorteile, Nachteile, Problem mit Namen nennen*
+
 
 ## Beacon-Less-Routing
 
 Bisher gingen wir davon aus, dass jeder Knoten seine Nachbarn kennt. Um dies zu vermeiden kann **BLR** benutzt werden:
 
 1. Der Startknoten kennt seine Nachbarn nicht
-2.  Sendet blind einen Broadcast an die umliegenden Knoten
+2. Sendet blind einen Broadcast an die umliegenden Knoten
 3. Die Knoten antworten nicht sofort
 4. Jeder Knoten berechnet für sich selbst die Metrik
 5. Je besser die Metrik, desto früher antworten die Knoten
@@ -44,3 +46,20 @@ Bisher gingen wir davon aus, dass jeder Knoten seine Nachbarn kennt. Um dies zu 
 ## Der Fehler von Greedy Routing
 
 Ein "dummes" Greedy-Routing zieht keine Rückwärts-Hops in Betracht, obwohl diese zu einem insgesamt besseren Pfad führen könnten. Des Weiteren kann es in "Sackgassen" laufen und stecken bleiben.
+
+*TODO: Beispiel, die zwei Methoden von Recovery von Greedy Routing*
+
+
+# Face-Routing
+
+*TODO*
+
+
+# Geographischer Multicast
+
+*TODO, sonstige Formen nicht im Detail*
+
+
+# Reaktive Topologiekontrolle
+
+*TODO, was ist das, was will man erreichen, Beispiel PDT bauen, aber nicht auswendig, warum PDT nachrichtenoptimal, O-Reaktivität angucken, $O_k$-reaktiv, BFP-GG, $\Omega_k-reaktiv$, Redundanzkoexistenz hinmalen können*

@@ -178,3 +178,50 @@ Die drei Definitionen sind in gewissen Fällen nicht äquivalent. Darum macht ma
 2. **Nicht-Colinearität**: es gibt keine drei Punkte, die auf einer Geraden liegen $\Leftrightarrow$ keine Voronai-Kante ist eine Gerade.
 
 Delauny-Triangulierung ist planar und keine lokale Topologie.
+
+
+# UDel (Unit-Disk-Delaunay-Triangulierung)
+
+$UDel = Del \cap UDG$. Keine lokale Topologie, aber wichtiges Vehikel um Spanning Properties von $k$-lokalen Graphen zeigen zu können.
+
+*TODO: Grundidee Keil-Gutwin-Beweis, Kreissortierung über $\Theta$$
+
+
+# DT-Pfade
+
+*TODO*
+
+
+# Dobkin-Beweis
+
+*TODO: Trick mit kürzestem Pfad wird evtl. abgefragt*
+
+
+# LDel (Lokale Delaunay-Triangulierung)
+
+*TODO, evtl. auch Zusammenhang mit GG, warum ist es ein Spanner (UDel $\subseteq$ LDel, darum ist LDel ein Spanner)*
+
+
+# PlDel (Planare Delaunay-Triangulierung)
+
+*TODO, niedrige Priorität, wird nicht unbedingt in der Klausur drauf eingegangen*
+
+
+# RDG (Restricted Delaunay Graph)
+
+*TODO*
+
+
+# PDT (Partielle Delaunay-Triangulierung)
+
+*TODO, Definition wissen*
+
+
+# PuDel (Partielle ungerichtete Delauney-Triangulierung)
+
+*TODO, beim Beweis verstehen wie „somit: PuDel ist $blabla - UDG-Spanner$” funktioniert, Gleichheit PuDel und PDT wird er nicht so genau fragen*
+
+
+# Das ganze weitere Graphengedöns
+
+*TODO, nicht so genau, auf die Folien gucken, nur höchstens Ideen von Chu-Lin/Edmunds-Algorithmus, Backbone: was ist Dominating Set, Grundidee des verteilten Dominating Set (lightweight construction), Verbesserung dafür, Erweiterungen schon noch drauf haben, aber den Rest nicht mehr*
