@@ -63,7 +63,7 @@ Der EMST über $V$ lässt sich über den Algorithmus von Kruskal herstellen: Zei
 
 ## LMST (Local EMST)
 
-Der **LMST** ist eine Graphenstruktur, die "nahme am" EMST ist. Gegeben sei ein Graph $G$ mit zwei Knoten $u$ und $v$ und der Kante $uv$. Wendet man LMST als Topologiekontrolle an, bleibt $uv$ im Graphen, wenn:
+Der **LMST** ist eine Graphenstruktur, die „nahe am“ EMST ist. Gegeben sei ein Graph $G$ mit zwei Knoten $u$ und $v$ und der Kante $uv$. Wendet man LMST als Topologiekontrolle an, bleibt $uv$ im Graphen, wenn:
 
 $uv \in LMST(G) \Leftrightarrow uv \in EMST(N(u)) \land uv \in EMST(N(v))$
 
