@@ -193,7 +193,7 @@ Delauny-Triangulierung ist planar und keine lokale Topologie.
 
 $UDel = Del \cap UDG$. Keine lokale Topologie, aber wichtiges Vehikel um Spanning Properties von $k$-lokalen Graphen zeigen zu können.
 
-*TODO: Grundidee Keil-Gutwin-Beweis, Kreissortierung über $\Theta$$
+*TODO: Grundidee Keil-Gutwin-Beweis, Kreissortierung über $\Theta$
 
 $UDel$ ist $UDG$-Spanner.
 
