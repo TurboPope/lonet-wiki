@@ -176,7 +176,7 @@ Drei mögliche Definitionen für $Del(S)$:
 
 2. Verbinde $u, v, w \in S$, wenn ihr Kreis keine weiteren Punkte enthält.
 
-3. Verbinde $u, v \in S$, wenn es einen Kreis gibt, der die beiden Punkte tangiert, aber keine anderen Punkte beinhaltet.
+3. Verbinde $u, v \in S$, wenn es einen Kreis gibt, der die beiden Punkte tangiert, aber keine anderen Punkte beinhaltet. (*Hinweis: Der Kreis muss nicht minimal sein, das wäre dann GG.*)
 
 ![Delaunay-Definitionen](img/delaunay.png)
 
