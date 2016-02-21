@@ -5,7 +5,7 @@ Die **k-lokale Sicht** $G[v, k]$ eines Knotens $v$ ist ein Subgraph von $G$, bes
 Eine **k-lokale Topologiekontrolle** ist eine Topologiekontrolle, die nur die k-lokale Sicht eines Knotens betrachtet, um Entscheidungen zu treffen.
 
 
-# UDG (Uni-Disk Graph)
+# UDG (Unit-Disk Graph)
 
 Ein UDG hat einen Radius $r$. Mit diesem Radius zieht man einen Kreis um eine Knotenmenge $V$. $UDG(V)$ macht dann eine Kante zwischen allen Punkten, die in einander Kreisen liegen.
 
