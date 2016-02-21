@@ -75,7 +75,7 @@ Der LMST ist eine 2-lokale Topologiekontrolle (*Beweis ausgelassen*).
 
 Ist $UDG(V)$ verbunden, so ist $EMST(V) \subseteq LMST(V)$ (*Beweis ausgelassen*).
 
-Der LMST hat maximalen Grad 6 (*???, Beweis in Übung*).
+Der LMST hat maximalen Grad 6. [Wikipedia](https://de.wikipedia.org/wiki/Grad_(Graphentheorie)).
 
 
 ## RNG (Relativer Nachbarschaftsgraph)
