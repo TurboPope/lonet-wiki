@@ -122,6 +122,24 @@ Um diese los zu werden entfernt man im Beispiel oben die Kante $AC$ und fügt ei
 
 # Localized Multicasting
 
+**Multicasting** sendet Nachrichten von einem an mehrere Knoten, aber nicht an alle. Man möchte eine Nachricht so weit wie möglich über den selben Pfad schicken und erst "auf den letzten Meter" splitten. **Lokales geographisches Multicasting** versucht dieses Problem in einem geographischen Netzwerk mit lokalen Entscheidungen zu lösen.
+
+## MSTEAM
+
+**MSTEAM** steht anscheinend für **EMST Backbone Assisted Localized Routing** *auch wenn das irgendwie keinen Sinn macht.*
+
+Jeder Knoten bildet mit EMST einen virtuellen **Backbone-Graphen** über sich und den Zielknoten. Dann schickt er die Nachricht an die Knoten, die die nächsten Hops im EMST "am besten" (entsprechend einer der üblichen Metriken) approximieren. Der virtuelle Backbone-Graph kann natürlich nur gebildet werden, wenn die geographischen Positionen der Zielknoten bekannt sind.
+
+![MSTEAM von S nach T1 bis T9, erster Hop. Rot: Virtueller EMST Backbone](img/msteam-with-backbone.png)
+
+## MFACE
+
+*MFACE wird leider nicht verständlich beschrieben, hier nur eine unsichere Interpretation.*
+
+MFACE benutzt die Kanten des virtuellen Backbone-Graphen als die Geraden, die die Faces schneiden, entlang derer dann zu den Zielknoten traverisiert wird.
+
+![MFACE Ausgangssituation](img/mface.png)
+
 
 # Reaktive Topologiekontrolle
 
