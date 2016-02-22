@@ -293,9 +293,9 @@ Den Rest nicht mehr.
 | Quasi Unit Disk Graph           | **QUDG**  | -       | nein   | UDG          |              |
 | Euclidean Minimal Spanning Tree | **EMST**  | nein    | ja     | UDG, LMST, Yao |              |
 | Local EMST                      | **LMST**  | 2       | ja     | URNG         |              |
-| Relativer Nachbarschaftsgraph   | **RNG**   | 1       | ja     |              |              |
+| Relativer Nachbarschaftsgraph   | **RNG**   | nein    | ja     |              |              |
 | Unit RNG                        | **URNG**  | 1       | ja     | UGG          | $\Theta$-RNG |
-| Gabriel Graph                   | **GG**    | 1       | ja     |              | $\Omega(\sqrt{n})$-UDG |
+| Gabriel Graph                   | **GG**    | nein    | ja     |              | $\Omega(\sqrt{n})$-UDG |
 | Unit GG                         | **UGG**   | 1       | ja     |              |              |
 | Delauney Triangulierung         | **Del**   | nein    | ja     |              | $2.24$       |
 | Unit Del                        | **UDel**  | nein    | ja     | LDel, RDG    | UDG          |
