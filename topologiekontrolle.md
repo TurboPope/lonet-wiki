@@ -283,3 +283,24 @@ $PuDel$ und $PDT$ sind gleich, wird aber in der Klausur nicht so genau gefragt.
     * Erweiterungen „schon noch drauf haben”
 
 Den Rest nicht mehr.
+
+
+# Übersicht
+
+| Name                            | Akronym   | k-lokal | planar | Supergraphen | t-Spanner    |
+| ------------------------------- | --------- | ------- | ------ | ------------ | ------------ |
+| Unit Disk Graph                 | **UDG**   | -       | nein   |              |              |
+| Quasi Unit Disk Graph           | **QUDG**  | -       | nein   | UDG          |              |
+| Euclidean Minimal Spanning Tree | **EMST**  | nein    | ja     | UDG, LMST    |              |
+| Local EMST                      | **LMST**  | 2       | ja     | URNG         |              |
+| Relativer Nachbarschaftsgraph   | **RNG**   | 1       | ja     |              |              |
+| Unit RNG                        | **URNG**  | 1       | ja     | UGG          | $\Theta$-RNG |
+| Gabriel Graph                   | **GG**    | 1       | ja     |              | $\Omega(\sqrt{n})$-UDG |
+| Unit GG                         | **UGG**   | 1       | ja     |              |              |
+| Delauney Triangulierung         | **Del**   | nein    | ja     |              | $2.24$       |
+| Unit Del                        | **UDel**  | nein    | ja     | LDel, RDG    | UDG          |
+| 1-Lokale Del                    | **$LDel^1$** | 1    | nein   | PlDel (für $LDel^1$) | $\frac{1+\sqrt{5}}{2}\pi$-UDG |
+| k-Lokale Del                    | **$LDel^k$** | k    | ja   | Udel           | $\frac{1+\sqrt{5}}{2}\pi$-UDG |
+| Planarized LDel                 | **PlDel** | ?       | ja     | $LDel^2$     |              |
+| Restricted Delauney Graph       | **RDG**   | 2       | ja     |              | UDG          |
+| Partielle Del                   | **PDT**   | 1       | ja     |              | $\frac{\pi}{2}$-Udel, $\frac{1+\sqrt{5}}{2}\pi\frac{\pi}{2}$-UDG |
