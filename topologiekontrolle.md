@@ -59,10 +59,6 @@ $$
 Wichtig für die ganzen Teile die folgen: wenn $F \subseteq G \subseteq H$ und $F$ ein $t$-Spanner von $H$, dann ist auch $G$ ein $t$-Spanner. Damit kann man folgende Ungleichung bauen:
 
 $$
-LDel^{(1)}(V) \supseteq PlDel(V) \supseteq LDel^{(2)}(V) \supseteq ... \supseteq LDel^{(k)}(V) \supseteq \underbrace{UDel(V)}_{UDG\textmd{-Spanner}}
-$$
-
-$$
 \underbrace{UDel(V)}_{UDG\textmd{-Spanner}} \subseteq LDel^{(k)}(V) \subseteq ... \subseteq LDel^{(2)}(V) \subseteq PlDel(V) \subseteq LDel^{(1)}(V)
 $$
 
@@ -231,12 +227,10 @@ $UDel(S) \subseteq LDel^{(k)}(S) \Rightarrow LDel^{(k)}(S)$ ist ein $UDG$-Spanne
 
 # RDG (Restricted Delaunay Graph)
 
-$RDG(V)$ für $UDG(V)$ (*TODO humane Beschreibung*):
-
+$RDG(V)$ für $UDG(V)$
 $$
 uv \in RDG(V) \Leftrightarrow uv \in UDG(V) \wedge \forall w \in N(u) \cap N(v): uv \in Del(N(w))
 $$
-
 Eine Kante $uv$ zwischen $u$ und $v$ aus $V$ ist Teil des RDG über $V$ genau dann, wenn $uv$ im UDG über $V$ ist und $uv$ in der Delauney-Triangulierung der Nachbarn von $w$ ist, für jeden Punkt $w$ in der gemeinsamen Nachbarschaft von $u$ und $v$.
 
 Es gilt $UDel(V) \subseteq RDG(V)$.
@@ -262,6 +256,8 @@ $PDL$ ist ein UDG-Spanner und ein UDel-Spanner. Er ist identisch mit dem $PuDel$
 # PuDel (Partielle ungerichtete Delauney-Triangulierung)
 
 *TODO, beim Beweis verstehen wie „somit: PuDel ist $blabla - UDG-Spanner$” funktioniert, Gleichheit PuDel und PDT wird er nicht so genau fragen*
+
+Irgendwie Teilschritte in UDel und für jeden Teilschritt zeigen, dass dort ein PuDel-Weg drin ist.
 
 $PuDel$ und $PDT$ sind gleich, wird aber in der Klausur nicht so genau gefragt.
 
