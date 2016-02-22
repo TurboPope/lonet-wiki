@@ -291,7 +291,7 @@ Den Rest nicht mehr.
 | ------------------------------- | --------- | ------- | ------ | ------------ | ------------ |
 | Unit Disk Graph                 | **UDG**   | -       | nein   |              |              |
 | Quasi Unit Disk Graph           | **QUDG**  | -       | nein   | UDG          |              |
-| Euclidean Minimal Spanning Tree | **EMST**  | nein    | ja     | UDG, LMST    |              |
+| Euclidean Minimal Spanning Tree | **EMST**  | nein    | ja     | UDG, LMST, Yao |              |
 | Local EMST                      | **LMST**  | 2       | ja     | URNG         |              |
 | Relativer Nachbarschaftsgraph   | **RNG**   | 1       | ja     |              |              |
 | Unit RNG                        | **URNG**  | 1       | ja     | UGG          | $\Theta$-RNG |
@@ -304,3 +304,4 @@ Den Rest nicht mehr.
 | Planarized LDel                 | **PlDel** | ?       | ja     | $LDel^2$     |              |
 | Restricted Delauney Graph       | **RDG**   | 2       | ja     |              | UDG          |
 | Partielle Del                   | **PDT**   | 1       | ja     |              | $\frac{\pi}{2}$-Udel, $\frac{1+\sqrt{5}}{2}\pi\frac{\pi}{2}$-UDG |
+| Yao-Graph                       | **Yao**   | 1       | nein   |              |              |
