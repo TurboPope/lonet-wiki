@@ -1,0 +1,29 @@
+\documentclass[a4paper,landscape]{article}
+\usepackage[a4paper,margin=1in,landscape]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{german}
+
+\begin{document}
+
+\begin{tabular}{|l|l|l|l|l|l|}\hline
+\textbf{Name}                   & \textbf{Akronym}   & \textbf{k-lokal} & \textbf{planar} & \textbf{Supergraphen} & \textbf{t-Spanner}    \\\hline
+Unit Disk Graph                 & \textbf{UDG}   & -       & nein   &              &              \\\hline
+Quasi Unit Disk Graph           & \textbf{QUDG}  & -       & nein   & UDG          &              \\\hline
+Euclidean Minimal Spanning Tree & \textbf{EMST}  & nein    & ja     & UDG, LMST, Yao &              \\\hline
+Local EMST                      & \textbf{LMST}  & 2       & ja     & URNG         &              \\\hline
+Relativer Nachbarschaftsgraph   & \textbf{RNG}   & nein    & ja     &              &              \\\hline
+Unit RNG                        & \textbf{URNG}  & 1       & ja     & UGG          & $\Theta$-RNG \\\hline
+Gabriel Graph                   & \textbf{GG}    & nein    & ja     &              & $\Omega(\sqrt{n})$-UDG \\\hline
+Unit GG                         & \textbf{UGG}   & 1       & ja     &              &              \\\hline
+Delauney Triangulierung         & \textbf{Del}   & nein    & ja     &              & $2.24$       \\\hline
+Unit Del                        & \textbf{UDel}  & nein    & ja     & LDel, RDG    & UDG          \\\hline
+1-Lokale Del                    & \textbf{LDel$^1$} & 1    & nein   & PlDel (für $LDel^1$) & $\frac{1+\sqrt{5}}{2}\pi$-UDG \\\hline
+k-Lokale Del                    & \textbf{LDel$^k$} & k    & ja   & Udel           & $\frac{1+\sqrt{5}}{2}\pi$-UDG \\\hline
+Planarized LDel                 & \textbf{PlDel} & ?       & ja     & $LDel^2$     &              \\\hline
+Restricted Delauney Graph       & \textbf{RDG}   & 2       & ja     &              & UDG          \\\hline
+Partielle Del                   & \textbf{PDT}   & 1       & ja     &              & $\frac{\pi}{2}$-Udel, $\frac{1+\sqrt{5}}{2}\pi\frac{\pi}{2}$-UDG \\\hline
+Yao-Graph                       & \textbf{Yao}   & 1       & nein   &              &              \\\hline
+\end{tabular}
+
+
+\end{document}
