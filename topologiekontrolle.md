@@ -295,8 +295,8 @@ Den Rest nicht mehr.
 | Unit GG                         | **UGG**   | 1       | ja     |              |              |
 | Delauney Triangulierung         | **Del**   | nein    | ja     |              | $2.24$       |
 | Unit Del                        | **UDel**  | nein    | ja     | LDel, RDG    | UDG          |
-| 1-Lokale Del                    | **$LDel^1$** | 1    | nein   | PlDel (für $LDel^1$) | $\frac{1+\sqrt{5}}{2}\pi$-UDG |
-| k-Lokale Del                    | **$LDel^k$** | k    | ja   | Udel           | $\frac{1+\sqrt{5}}{2}\pi$-UDG |
+| 1-Lokale Del                    | **LDel$^1$** | 1    | nein   | PlDel (für $LDel^1$) | $\frac{1+\sqrt{5}}{2}\pi$-UDG |
+| k-Lokale Del                    | **LDel$^k$** | k    | ja   | Udel           | $\frac{1+\sqrt{5}}{2}\pi$-UDG |
 | Planarized LDel                 | **PlDel** | ?       | ja     | $LDel^2$     |              |
 | Restricted Delauney Graph       | **RDG**   | 2       | ja     |              | UDG          |
 | Partielle Del                   | **PDT**   | 1       | ja     |              | $\frac{\pi}{2}$-Udel, $\frac{1+\sqrt{5}}{2}\pi\frac{\pi}{2}$-UDG |
