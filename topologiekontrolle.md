@@ -59,7 +59,7 @@ $$
 Wichtig für die ganzen Teile die folgen: wenn $F \subseteq G \subseteq H$ und $F$ ein $t$-Spanner von $H$, dann ist auch $G$ ein $t$-Spanner. Damit kann man folgende Ungleichung bauen:
 
 $$
-\underbrace{UDel(V)}_{UDG\textmd{-Spanner}} \subseteq LDel^{(k)}(V) \subseteq ... \subseteq LDel^{(2)}(V) \subseteq PlDel(V) \subseteq LDel^{(1)}(V)
+\underbrace{UDel(V)}_{UDG-Spanner} \subseteq LDel^{(k)}(V) \subseteq ... \subseteq LDel^{(2)}(V) \subseteq PlDel(V) \subseteq LDel^{(1)}(V)
 $$
 
 # Planare Graphen
